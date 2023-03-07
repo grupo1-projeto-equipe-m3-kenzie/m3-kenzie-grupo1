@@ -23,7 +23,7 @@ interface ICreatePost {
   userId: number;
 }
 export function CreatePost() {
-  const { FunctionPostRegister } = useContext(postsContext);
+  const { functionPostRegister } = useContext(postsContext);
   const {
     register,
     handleSubmit,
@@ -40,7 +40,7 @@ export function CreatePost() {
         <Link to="/login">Logout</Link>
       </header>
       <h1>Publique sua experiencia</h1>
-      <form onSubmit={handleSubmit(FunctionPostRegister)}>
+      <form onSubmit={handleSubmit(functionPostRegister)}>
         <label>Titulo</label>
         <input type="text" {...register("title")} />
         {errors.title?.message}
@@ -62,9 +62,9 @@ export function CreatePost() {
 
         <textarea
           placeholder="Digite sua mensagem"
+          value=""
           {...register("description")}
         >
-          {" "}
         </textarea>
         {errors.description?.message}
         <button type="submit">Publicar</button>

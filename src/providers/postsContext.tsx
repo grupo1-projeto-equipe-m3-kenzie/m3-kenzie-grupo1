@@ -3,27 +3,28 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-interface iUserPropsChildren {
-  children: React.ReactNode;
-}
-interface ICreatePost {
-  title: string;
-  state: string;
-  city: string;
-  country: string;
-  img: string;
-  description: string;
-  userId: number;
-}
-interface IvalueProps {
-  FunctionPostRegister: (data: ICreatePost) => void;
-}
-export const postsContext = createContext({} as IvalueProps);
-export const PostsProvider = ({ children }: iUserPropsChildren) => {
+import { ICreatePost, IDefaultPropsChildren, IPostContext } from "./@types";
+// interface iUserPropsChildren {
+//   children: React.ReactNode;
+// }
+// interface ICreatePost {
+//   title: string;
+//   state: string;
+//   city: string;
+//   country: string;
+//   img: string;
+//   description: string;
+//   userId: number;
+// }
+// interface IvalueProps {
+//   functionPostRegister: (data: ICreatePost) => void;
+// }
+export const postsContext = createContext({} as IPostContext);
+export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   const token = localStorage.getItem("@TokenUserAcess");
   const userId = localStorage.getItem("@userIdAcess");
   const [posts, setPosts] = useState([] as ICreatePost[]);
-  const FunctionPostRegister = async (data: ICreatePost) => {
+  const functionPostRegister = async (data: ICreatePost) => {
     try {
       const response = await api.post("/posts/", data, {
         headers: {
@@ -42,7 +43,7 @@ export const PostsProvider = ({ children }: iUserPropsChildren) => {
     }
   };
   return (
-    <postsContext.Provider value={{ FunctionPostRegister }}>
+    <postsContext.Provider value={{ posts, setPosts, functionPostRegister }}>
       {children}
     </postsContext.Provider>
   );
