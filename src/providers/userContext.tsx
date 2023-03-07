@@ -3,36 +3,45 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-interface iUserPropsChildren {
-  children: React.ReactNode;
-}
-interface ILoginForm {
-  email: string;
-  password: string;
-}
-interface IValueProps {
-  functionLogin: (data: ILoginForm) => void;
-  functionRegister: (data: iRegisterData) => void;
-}
-interface iLoginUser {
-  id: string;
-  name: string;
-  email: string;
-}
+import {
+  IDefaultPropsChildren,
+  ILoginForm,
+  ILoginUser,
+  IRegisterData,
+  IUserContext,
+} from "./@types";
+// interface iUserPropsChildren {
+//   children: React.ReactNode;
+// }
+// interface ILoginForm {
+//   email: string;
+//   password: string;
+// }
+// interface IValueProps {
+//   functionLogin: (data: ILoginForm) => void;
+//   functionRegister: (data: iRegisterData) => void;
+// }
+// interface iLoginUser {
+//   id: string;
+//   name: string;
+//   email: string;
+// }
 
-interface iRegisterData {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  img: string;
-}
+// interface iRegisterData {
+//   name: string;
+//   email: string;
+//   password: string;
+//   confirmPassword: string;
+//   img: string;
+// }
 
-export const userContext = createContext({} as IValueProps);
-export const UserProvider = ({ children }: iUserPropsChildren) => {
+export const userContext = createContext({} as IUserContext);
+
+export const UserProvider = ({ children }: IDefaultPropsChildren) => {
   const navigate = useNavigate();
 
-  const [useLogin, setUserLogin] = useState({} as iLoginUser);
+  const [userLogin, setUserLogin] = useState({} as ILoginUser);
+
   const functionLogin = async (data: ILoginForm) => {
     try {
       const response = await api.post("/login", data);
@@ -51,7 +60,7 @@ export const UserProvider = ({ children }: iUserPropsChildren) => {
     }
   };
 
-  const functionRegister = async (data: iRegisterData) => {
+  const functionRegister = async (data: IRegisterData) => {
     try {
       const response = await api.post("/register", data);
 
@@ -61,7 +70,7 @@ export const UserProvider = ({ children }: iUserPropsChildren) => {
       // );
       // let userId = localStorage.setItem("@userIdAcess", response.data.user.id);
       // setUserLogin(response.data.user);
-      // navigate("/Dashboard");
+      navigate("/Dashboard");
       console.log(response);
     } catch (error: any) {
       toast.error(error.response.data);
@@ -70,7 +79,9 @@ export const UserProvider = ({ children }: iUserPropsChildren) => {
   };
 
   return (
-    <userContext.Provider value={{ functionLogin, functionRegister }}>
+    <userContext.Provider
+      value={{ userLogin, setUserLogin, functionLogin, functionRegister }}
+    >
       {children}
     </userContext.Provider>
   );
