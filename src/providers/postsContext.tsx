@@ -21,11 +21,11 @@ import { ICreatePost, IDefaultPropsChildren, IPostContext } from "./@types";
 // }
 export const postsContext = createContext({} as IPostContext);
 export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
-  const token = localStorage.getItem("@TokenUserAcess");
   const userId = localStorage.getItem("@userIdAcess");
   const [posts, setPosts] = useState([] as ICreatePost[]);
   const functionPostRegister = async (data: ICreatePost) => {
     try {
+      let token = localStorage.getItem("@TokenUserAcess");
       const response = await api.post("/posts/", data, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -36,9 +36,9 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
       // GetTechs();
       console.log(response);
 
-      // toast.success("Technology registered successfully");
+      toast.success("Post criado com sucesso");
     } catch (error: any) {
-      // toast.error(error.response.data.message);
+      toast.error(error.response.data);
       console.log(error);
     }
   };
