@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 import { ToastContainer, toast } from "react-toastify";
@@ -24,6 +24,8 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   const token = localStorage.getItem("@TokenUserAcess");
   const userId = localStorage.getItem("@userIdAcess");
   const [posts, setPosts] = useState([] as ICreatePost[]);
+  const [infoUser, setInfoUser] = useState("");
+  const [postTd, setPostId] = useState("");
   const functionPostRegister = async (data: ICreatePost) => {
     try {
       const response = await api.post("/posts/", data, {
@@ -32,18 +34,39 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         },
       });
       setPosts([...posts, response.data]);
-
-      // GetTechs();
       console.log(response);
-
-      // toast.success("Technology registered successfully");
+      setPostId(response.data.id);
+      toast.success("post created successfully");
     } catch (error: any) {
-      // toast.error(error.response.data.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
+  const searchNameUser = async () => {
+    const token = localStorage.getItem("@TokenUserAcess");
+    const userId = localStorage.getItem("@userIdAcess");
+    try {
+      const response = await api.get(`/users/${userId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log(response);
+      setInfoUser(response.data.name);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    searchNameUser();
+  }, []);
+
   return (
-    <postsContext.Provider value={{ posts, setPosts, functionPostRegister }}>
+    <postsContext.Provider
+      value={{ posts, setPosts, functionPostRegister, setInfoUser, infoUser }}
+    >
       {children}
     </postsContext.Provider>
   );
