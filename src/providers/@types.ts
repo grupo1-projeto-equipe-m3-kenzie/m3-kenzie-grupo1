@@ -84,6 +84,8 @@ export interface IPostContext {
   posts: ICreatePost[] | [];
   setPosts: React.Dispatch<React.SetStateAction<ICreatePost[]>>;
   functionPostRegister: (data: ICreatePost) => Promise<void>;
+  setInfoUser: React.Dispatch<React.SetStateAction<string>>;
+  infoUser: string;
 }
 
 export interface IDashboardContext {
