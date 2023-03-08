@@ -62,7 +62,7 @@ export function CreatePost() {
 
         <textarea
           placeholder="Digite sua mensagem"
-          value=""
+          
           {...register("description")}
         >
         </textarea>
