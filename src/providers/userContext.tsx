@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 import { toast } from "react-toastify";
@@ -40,7 +40,6 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
       listLastPosts();
       listFollowersPosts(response.data.user.following);
       navigate("/Dashboard");
-      //console.log(response);
     } catch (error: any) {
       toast.error(error.response.data);
       console.log(error);
@@ -69,7 +68,7 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
     const id = localStorage.getItem("@userIdAccess");
     if (id) {
       try {
-        const response = await api.get(`users/${id}`, {
+        const response = await api.get(`/users/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("@TokenUserAccess")}`,
           },
@@ -84,7 +83,7 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
 
   async function listLastPosts() {
     try {
-      const response = await api.get("posts?_sort=id&_order=desc&_limit=5", {
+      const response = await api.get("/posts?_sort=id&_order=desc&_limit=5", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -100,7 +99,7 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
       .map((followId) => `userId=${followId}&`)
       .join("");
     try {
-      const response = await api.get(`posts?${endPoint}`);
+      const response = await api.get(`/posts?${endPoint}`);
       setFollowersPosts(response.data);
     } catch (error) {
       console.log(error);
@@ -110,16 +109,17 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
   async function followUser(id: number) {
     if (userLogin && token) {
       const ifFollowing = userLogin.following.find((idUser) => id === idUser);
+      setFollowingUsers([...userLogin.following, id]);
       if (ifFollowing) {
         toast.error("Você já segue esse usuário");
       } else {
         try {
-          const response = await api.patch(`users/${userLogin.id}`, {
+          const response = await api.patch(`/users/${userLogin.id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
+              data: { following: followingUsers },
             },
           });
-          setFollowingUsers([...userLogin.following, id]);
           console.log(response);
         } catch (error) {
           console.log(error);

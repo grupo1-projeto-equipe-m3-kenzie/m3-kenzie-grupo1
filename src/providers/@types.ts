@@ -9,7 +9,7 @@ export interface ICreatePost {
   country: string;
   img: string;
   description: string;
-  //userId: number;
+  userId: number;
   name: string;
 }
 
@@ -86,4 +86,6 @@ export interface IPostContext {
   functionPostRegister: (data: ICreatePost) => Promise<void>;
   setInfoUser: React.Dispatch<React.SetStateAction<string>>;
   infoUser: string;
+  postId: number;
+  setPostId: React.Dispatch<React.SetStateAction<number>>;
 }

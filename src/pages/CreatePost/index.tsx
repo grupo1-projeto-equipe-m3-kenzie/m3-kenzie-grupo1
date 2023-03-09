@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { SubmitHandler, useForm, UseFormRegister } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { postsContext } from "../../providers/postsContext";
 import { ICreatePost } from "../../providers/@types";
 
 const formSchemaCreatePost = yup.object().shape({
+  name: yup.string(),
   title: yup.string().required("Titulo obrigatório"),
   state: yup.string().required("Estado obrigatório"),
   city: yup.string().required("Cidade obrigatória"),
@@ -36,7 +37,13 @@ export function CreatePost() {
       </header>
       <h1>Publique sua experiencia</h1>
       <form onSubmit={handleSubmit(functionPostRegister)}>
-        <input type="text" value={infoUser} />
+        <input
+          type="text"
+          disabled={true}
+          value={infoUser}
+          placeholder={infoUser}
+          {...register("name")}
+        />
         <label>Titulo</label>
         <input type="text" {...register("title")} />
         {errors.title?.message}
