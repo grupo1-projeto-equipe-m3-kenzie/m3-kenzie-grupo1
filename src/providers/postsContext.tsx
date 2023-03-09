@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,9 +11,11 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
 
   const [posts, setPosts] = useState([] as ICreatePost[]);
   const [infoUser, setInfoUser] = useState("");
-  const [postId, setPostId] = useState("");
+  const [postId, setPostId] = useState(0);
 
   const functionPostRegister = async (data: ICreatePost) => {
+    data.name = infoUser;
+    data.userId = Number(userId);
     if (token) {
       try {
         const response = await api.post("/posts/", data, {
@@ -23,7 +24,6 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
           },
         });
         setPosts([...posts, response.data]);
-        //console.log(response);
         setPostId(response.data.id);
         toast.success("post created successfully");
       } catch (error: any) {
@@ -56,7 +56,15 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
 
   return (
     <postsContext.Provider
-      value={{ posts, setPosts, functionPostRegister, setInfoUser, infoUser }}
+      value={{
+        posts,
+        setPosts,
+        functionPostRegister,
+        setInfoUser,
+        infoUser,
+        postId,
+        setPostId,
+      }}
     >
       {children}
     </postsContext.Provider>

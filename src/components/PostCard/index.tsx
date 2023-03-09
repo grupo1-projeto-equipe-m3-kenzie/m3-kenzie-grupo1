@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { IPosts } from "../../providers/@types";
+import { postsContext } from "../../providers/postsContext";
 import { userContext } from "../../providers/userContext";
 
 export const PostCard = ({
@@ -15,6 +16,7 @@ export const PostCard = ({
   description,
 }: IPosts) => {
   const { followUser } = useContext(userContext);
+  const { setPostId } = useContext(postsContext);
 
   const [following, setFollowing] = useState<string | "">("Seguir");
 
@@ -26,6 +28,7 @@ export const PostCard = ({
       setFollowing("Seguir");
     }
   }
+  
   return (
     <li key={id}>
       <p>{name}</p>
@@ -36,7 +39,9 @@ export const PostCard = ({
       <p>{city}</p>
       <p>{country}</p>
       <p>{description}</p>
-      <Link to={`/ReadPost/${id}`}>Abrir publicação</Link>
+      <Link to={"/ReadPost"} onClick={() => setPostId(id)}>
+        Abrir publicação
+      </Link>
     </li>
   );
 };
