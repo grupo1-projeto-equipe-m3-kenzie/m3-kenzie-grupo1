@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { SubmitHandler, useForm, UseFormRegister } from "react-hook-form";
 import { useContext } from "react";
 import { postsContext } from "../../providers/postsContext";
+import { ICreatePost } from "../../providers/@types";
 
 const formSchemaCreatePost = yup.object().shape({
   title: yup.string().required("Titulo obrigatório"),
@@ -13,16 +14,7 @@ const formSchemaCreatePost = yup.object().shape({
   img: yup.string().required("Imagem obrigatória"),
   description: yup.string().required("Descrição obrigatória"),
 });
-interface ICreatePost {
-  title: string;
-  state: string;
-  city: string;
-  country: string;
-  img: string;
-  description: string;
-  userId: number;
-  name: string;
-}
+
 export function CreatePost() {
   const { functionPostRegister } = useContext(postsContext);
   const { infoUser } = useContext(postsContext);
@@ -33,6 +25,7 @@ export function CreatePost() {
   } = useForm<ICreatePost>({
     resolver: yupResolver(formSchemaCreatePost),
   });
+
   function onSubmit(data: ICreatePost) {
     console.log(data);
   }
@@ -56,13 +49,10 @@ export function CreatePost() {
         <label>País</label>
         <input type="text" {...register("country")} />
         <p> {errors.country?.message}</p>
-
         <label>Adicionar imagem</label>
         <input type="text" {...register("img")} />
         <p>{errors.img?.message}</p>
-
         <label>Detalhe sua experiência aqui...</label>
-
         <textarea
           placeholder="Digite sua mensagem"
           {...register("description")}

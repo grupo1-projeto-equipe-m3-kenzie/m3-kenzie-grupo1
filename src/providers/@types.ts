@@ -9,7 +9,8 @@ export interface ICreatePost {
   country: string;
   img: string;
   description: string;
-  userId: number;
+  //userId: number;
+  name: string;
 }
 
 export interface ILoginForm {
@@ -17,15 +18,14 @@ export interface ILoginForm {
   password: string;
 }
 
-// export interface IValueProps {
-//   functionLogin: (data: ILoginForm) => void;
-//   functionRegister: (data: iRegisterData) => void;
-// }
-
 export interface ILoginUser {
-  id: string;
-  name: string;
   email: string;
+  name: string;
+  img: string;
+  following: number[] | [];
+  id: number;
+  password?: string;
+  isAdm?: boolean;
 }
 
 export interface IRegisterData {
@@ -36,16 +36,6 @@ export interface IRegisterData {
   img: string;
 }
 
-// export interface IValueProps {
-//   userLogin: ILoginUser | null;
-//   setUserLogin: React.Dispatch<React.SetStateAction<ILoginUser>>;
-//   functionLogin: (data: ILoginForm) => void;
-//   functionRegister: (data: IRegisterData) => void;
-//   posts: ICreatePost[] | [];
-//   setPosts: React.Dispatch<React.SetStateAction<ICreatePost[]>>;
-//   functionPostRegister: (data: ICreatePost) => Promise<void>;
-// }
-
 export interface IPosts {
   name: string;
   title: string;
@@ -55,7 +45,7 @@ export interface IPosts {
   img: string;
   description: string;
   userId: number;
-  comments: string;
+  comments?: string;
   id: number;
 }
 
@@ -75,9 +65,19 @@ export interface IUser {
 
 export interface IUserContext {
   userLogin: ILoginUser | null;
-  setUserLogin: React.Dispatch<React.SetStateAction<ILoginUser>>;
+  setUserLogin: React.Dispatch<React.SetStateAction<ILoginUser | null>>;
   functionLogin: (data: ILoginForm) => void;
   functionRegister: (data: IRegisterData) => void;
+  lastPosts: IPosts[] | [];
+  setLastPosts: React.Dispatch<React.SetStateAction<[] | IPosts[]>>;
+  listLastPosts: () => Promise<void>;
+  followersPost: [] | IPosts[];
+  setFollowersPosts: React.Dispatch<React.SetStateAction<[] | IPosts[]>>;
+  listFollowersPosts: (users: number[]) => Promise<void>;
+  followingUsers: number[] | [];
+  setFollowingUsers: React.Dispatch<React.SetStateAction<number[] | []>>;
+  followUser(id: number): Promise<void>;
+  userLogout: () => void;
 }
 
 export interface IPostContext {
@@ -86,17 +86,4 @@ export interface IPostContext {
   functionPostRegister: (data: ICreatePost) => Promise<void>;
   setInfoUser: React.Dispatch<React.SetStateAction<string>>;
   infoUser: string;
-}
-
-export interface IDashboardContext {
-  user: IUser | null;
-  setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
-  getUser: () => Promise<void>;
-  followingUsers: [] | IPosts[];
-  setFollowingUsers: React.Dispatch<React.SetStateAction<[] | IPosts[]>>;
-  getFollowing: (user: []) => Promise<void>;
-  newPosts: IPosts[] | [];
-  setNewPosts: React.Dispatch<React.SetStateAction<[] | IPosts[]>>;
-  listNewPosts: () => Promise<void>;
-  viewPost: (id: number) => void;
 }
