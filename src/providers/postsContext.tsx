@@ -84,8 +84,23 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   }
 
   async function submitComment(data: IComments) {
-    console.log("lalala");
-  }
+    const userId = localStorage.get("@userIdAccess")
+    console.log("em teste")
+ 
+   //  try {
+   //   const response = await api.get(`/users/${userId}`, {
+   //     headers: {
+   //       Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
+   //     },
+   //     const 
+   //   });
+   //   // console.log(response.data);
+   //   setPost([response.data]);
+   // } catch (error: any) {
+   //   toast.error(error.response.data.message);
+   // }
+     
+   }
 
   async function userImage() {
     let userId = localStorage.getItem("@userIdAccess");

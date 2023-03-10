@@ -8,8 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { IComments } from "../../providers/@types";
-import { set } from "react-hook-form/dist/utils";
-import { useNavigate } from "react-router-dom";
+
 
 export function ReadPost() {
   const {
@@ -30,13 +29,6 @@ export function ReadPost() {
   const formSchema = yup.object().shape({
     description: yup.string().required("O comentário não pode estar vazio"),
   });
-  const navigate = useNavigate();
-  const route = localStorage.getItem("@TokenUserAccess");
-  useEffect(() => {
-    if (!route) {
-      navigate("/login");
-    }
-  }, []);
 
   const {
     register,
@@ -65,15 +57,13 @@ export function ReadPost() {
 
       <div>
         <h2>Comentários</h2>
-        <form onSubmit={() => handleSubmit(submitComment)}>
+        <form onSubmit={handleSubmit(submitComment)}>
           <input
             type="text"
             placeholder="Deixe seu comentário..."
             {...register("description")}
           />
-          <button type="submit" onClick={(event) => event.preventDefault()}>
-            Comentar
-          </button>
+          <button type="submit">Comentar</button>
         </form>
       </div>
     </>
