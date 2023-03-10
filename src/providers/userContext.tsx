@@ -46,8 +46,6 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
     }
   };
 
- 
-
   const functionRegister = async (data: IRegisterData) => {
     try {
       const response = await api.post("/register", data);

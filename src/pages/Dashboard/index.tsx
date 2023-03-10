@@ -1,9 +1,20 @@
 import { useContext } from "react";
 import { PostCard } from "../../components/PostCard";
 import { userContext } from "../../providers/userContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Dashboard() {
   const { lastPosts, followersPost, userLogout } = useContext(userContext);
+  const navigate = useNavigate();
+  //const route = localStorage.getItem("@tokenUserAcess"); //@tokenUserAcess
+  useEffect(() => {
+    const route = localStorage.getItem("@TokenUserAccess");
+    if (!route) {
+      navigate("/login");
+      console.log(route);
+    }
+  }, []);
 
   return (
     <>
