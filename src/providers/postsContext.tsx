@@ -53,7 +53,7 @@ async function renderPost() {
   }
 
 async function submitComment(data:IComments){
- console.log(data)
+ console.log("lalala")
 }
 
   async function userImage() {
