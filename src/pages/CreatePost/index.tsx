@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { postsContext } from "../../providers/postsContext";
 import { ICreatePost } from "../../providers/@types";
 
@@ -27,9 +27,20 @@ export function CreatePost() {
     resolver: yupResolver(formSchemaCreatePost),
   });
 
+  const navigate=useNavigate()
+
   function onSubmit(data: ICreatePost) {
     console.log(data);
   }
+
+  const route= localStorage.getItem("@TokenUserAccess")
+
+  useEffect(()=>{
+    if(!route){
+      navigate("/login")
+    }
+
+  },[])
   return (
     <>
       <header>

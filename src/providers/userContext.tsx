@@ -46,6 +46,8 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
     }
   };
 
+ 
+
   const functionRegister = async (data: IRegisterData) => {
     try {
       const response = await api.post("/register", data);
@@ -137,13 +139,13 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
     navigate("/");
   };
 
-  useEffect(() => {
-    const userToken = localStorage.getItem("@TokenUserAccess");
-    if (userToken) {
-      getUser();
-      listLastPosts();
-    }
-  }, []);
+  // useEffect(() => {
+  //   const userToken = localStorage.getItem("@TokenUserAccess");
+  //   if (userToken) {
+  //     getUser();
+  //     listLastPosts();
+  //   }
+  // }, []);
 
   return (
     <userContext.Provider
