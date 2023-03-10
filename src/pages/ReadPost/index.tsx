@@ -1,32 +1,81 @@
 import { Axios } from "axios";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import { postsContext } from "../../providers/postsContext";
 import { api } from "../../services/api";
+import { Link } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { IComments } from "../../providers/@types";
+import { set } from "react-hook-form/dist/utils";
+import { useNavigate } from "react-router-dom";
 
 export function ReadPost() {
-  const { postId } = useContext(postsContext);
+  const {
+    postId,
+    renderPost,
+    post,
+    image,
+    submitComment,
+    setPostId,
+    getPostId,
+  } = useContext(postsContext);
 
-  const userID = 1;
-  const postNumber = 2;
+  useEffect(() => {
+    getPostId();
+    renderPost();
+  }, []);
 
-  async function post() {
-    try {
-      const response = await api.get("/posts?_sort=id&_order=desc&_limit=1", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
-        },
-      });
-    } catch (error) {
-      console.log(error);
+  const formSchema = yup.object().shape({
+    description: yup.string().required("O comentário não pode estar vazio"),
+  });
+  const navigate = useNavigate();
+  const route = localStorage.getItem("@TokenUserAccess");
+  useEffect(() => {
+    if (!route) {
+      navigate("/login");
     }
-  }
+  }, []);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IComments>({
+    resolver: yupResolver(formSchema),
+  });
 
   return (
     <>
-      <p>{postId}</p>
-      <h1> Em construção</h1>
-      <p>Partiu codar!</p>
+      <div>
+        <header>
+          <img src={image} alt="imagem"></img>
+          <div>
+            <h3> {post[0]?.name} </h3>
+            <p>{post[0]?.city}</p>
+            <p>{post[0]?.state}</p>
+          </div>
+          <button>Seguir</button>
+        </header>
+        <img src={post[0]?.img}></img>
+        <h3>{post[0]?.title}</h3>
+        <p>{post[0]?.description}</p>
+      </div>
+
+      <div>
+        <h2>Comentários</h2>
+        <form onSubmit={() => handleSubmit(submitComment)}>
+          <input
+            type="text"
+            placeholder="Deixe seu comentário..."
+            {...register("description")}
+          />
+          <button type="submit" onClick={(event) => event.preventDefault()}>
+            Comentar
+          </button>
+        </form>
+      </div>
     </>
   );
 }

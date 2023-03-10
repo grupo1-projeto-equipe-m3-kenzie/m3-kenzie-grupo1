@@ -167,13 +167,13 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
     navigate("/");
   };
 
-  useEffect(() => {
-    const userToken = localStorage.getItem("@TokenUserAccess");
-    if (userToken) {
-      getUser();
-      listLastPosts();
-    }
-  }, []);
+  // useEffect(() => {
+  //   const userToken = localStorage.getItem("@TokenUserAccess");
+  //   if (userToken) {
+  //     getUser();
+  //     listLastPosts();
+  //   }
+  // }, []);
 
   return (
     <userContext.Provider

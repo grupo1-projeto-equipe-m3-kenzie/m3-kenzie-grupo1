@@ -2,6 +2,17 @@ export interface IDefaultPropsChildren {
   children: React.ReactNode;
 }
 
+export interface IPost {
+  title: string;
+  state: string;
+  city: string;
+  country: string;
+  img: string;
+  description: string;
+  userId: number;
+  name: string;
+}
+
 export interface ICreatePost {
   title: string;
   state: string;
@@ -86,6 +97,13 @@ export interface IPostContext {
   functionPostRegister: (data: ICreatePost) => Promise<void>;
   setInfoUser: React.Dispatch<React.SetStateAction<string>>;
   infoUser: string;
-  postId: number;
-  setPostId: React.Dispatch<React.SetStateAction<number>>;
+  postId:  string | null;
+  setPostId: React.Dispatch<React.SetStateAction<string | null>>;
+  renderPost(): Promise<void>;
+  post: ICreatePost[] | [];
+  setPost: React.Dispatch<React.SetStateAction<ICreatePost[]>>;
+  userImage(): Promise<void>;
+  image: string;
+  submitComment(data: IComments): Promise<void>;
+  getPostId(): Promise<void>;
 }

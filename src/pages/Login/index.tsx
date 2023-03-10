@@ -10,6 +10,9 @@ import { Form } from "./style";
 import { Header } from "./style";
 import logoAcess from "../../assets/Anchor-logo 1.png";
 import { Link } from "react-router-dom";
+import { SectionImg } from "./style";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const formSchemaLogin = yup.object().shape({
   email: yup.string().required("Email obrigatorio").email("Email invalido"),
@@ -28,9 +31,15 @@ export function Login() {
   } = useForm<ILoginForm>({
     resolver: yupResolver(formSchemaLogin),
   });
-
+  const navigate = useNavigate();
+  const route = localStorage.getItem("@TokenUserAcess"); //@tokenUserAcess
+  useEffect(() => {
+    if (route) {
+      navigate("/Dashboard");
+    }
+  }, []);
   return (
-    <>
+    <SectionImg>
       <ImgBody src={imgBodyLogin} />
       <Header>
         <img src={logoAcess} /> <Link to="/register">Register</Link>
@@ -51,6 +60,6 @@ export function Login() {
         />
         <button type="submit">Entrar</button>
       </Form>
-    </>
+    </SectionImg>
   );
 }

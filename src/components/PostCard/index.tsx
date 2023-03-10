@@ -35,7 +35,7 @@ export const PostCard = ({
       <p>{city}</p>
       <p>{country}</p>
       <p>{description}</p>
-      <Link to={"/ReadPost"} onClick={() => setPostId(id)}>
+      <Link to={"/ReadPost"} onClick={() => setPostId(String(id))}>
         Abrir publicação
       </Link>
     </PostCardStyled>
