@@ -73,10 +73,10 @@ export interface IUserContext {
   listLastPosts: () => Promise<void>;
   followersPost: [] | IPosts[];
   setFollowersPosts: React.Dispatch<React.SetStateAction<[] | IPosts[]>>;
-  listFollowersPosts: (users: number[]) => Promise<void>;
+  listFollowersPosts: (followList: number[]) => Promise<void>;
   followingUsers: number[] | [];
   setFollowingUsers: React.Dispatch<React.SetStateAction<number[] | []>>;
-  followUser(id: number): Promise<void>;
+  followUnfollowUser(id: number, name: string): Promise<void>;
   userLogout: () => void;
 }
 

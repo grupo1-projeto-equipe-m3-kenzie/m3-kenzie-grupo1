@@ -15,8 +15,6 @@ import {
 export const userContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: IDefaultPropsChildren) => {
-  const navigate = useNavigate();
-
   // Usuário logado
   const [userLogin, setUserLogin] = useState<ILoginUser | null>(null);
   // Lista dos últimos posts
@@ -27,7 +25,9 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
   const [followingUsers, setFollowingUsers] = useState<number[] | []>([]);
 
   const token = localStorage.getItem("@TokenUserAccess");
-  //const userLogedID = localStorage.getItem("@userIdAccess");
+  const userLogedID = localStorage.getItem("@userIdAccess");
+
+  const navigate = useNavigate();
 
   const functionLogin = async (data: ILoginForm) => {
     try {
@@ -39,6 +39,8 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
       setUserLogin(response.data.user);
       listLastPosts();
       listFollowersPosts(response.data.user.following);
+      setFollowersPosts(response.data.user.following);
+      setFollowingUsers(response.data.user.following);
       navigate("/Dashboard");
     } catch (error: any) {
       toast.error(error.response.data);
@@ -49,7 +51,6 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
   const functionRegister = async (data: IRegisterData) => {
     try {
       const response = await api.post("/register", data);
-
       // let tokenUser = localStorage.setItem(
       //   "@TokenUserAcess",
       //   response.data.accessToken
@@ -65,16 +66,16 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
   };
 
   async function getUser() {
-    const id = localStorage.getItem("@userIdAccess");
-    if (id) {
+    if (userLogedID) {
       try {
-        const response = await api.get(`/users/${id}`, {
+        const response = await api.get(`/users/${userLogedID}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("@TokenUserAccess")}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         setUserLogin(response.data);
         listFollowersPosts(response.data.following);
+        setFollowingUsers(response.data.following);
       } catch (error) {
         console.log(error);
       }
@@ -94,41 +95,66 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
     }
   }
 
-  async function listFollowersPosts(following: number[]) {
-    const endPoint = following
-      .map((followId) => `userId=${followId}&`)
-      .join("");
+  async function listFollowersPosts(listFollowinUsers: number[]) {
+    if (listFollowinUsers.length > 0) {
+      const endPoint = listFollowinUsers
+        .map((followId) => `userId=${followId}&`)
+        .join("");
+      try {
+        const response = await api.get(`/posts?${endPoint}`);
+        setFollowersPosts(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
+  async function followUnfollowUser(id: number, name: string) {
+    if (userLogin && token) {
+      const isFollowing = followingUsers.find((element) => element === id);
+      if (isFollowing === id) {
+        unfollowUser(id, name);
+      } else {
+        followUser(id, name);
+      }
+    }
+  }
+
+  async function followUser(id: number, name: string) {
+    setFollowingUsers([...followingUsers, id]);
     try {
-      const response = await api.get(`/posts?${endPoint}`);
-      setFollowersPosts(response.data);
+      const response = await api.get(`/users/${userLogedID}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        data: { following: followingUsers },
+      });
+      toast.success(`Você está seguindo ${name}`);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function followUser(id: number) {
-    if (userLogin && token) {
-      const ifFollowing = userLogin.following.find((idUser) => id === idUser);
-      setFollowingUsers([...userLogin.following, id]);
-      if (ifFollowing) {
-        toast.error("Você já segue esse usuário");
-      } else {
-        try {
-          const response = await api.patch(`/users/${userLogin.id}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              data: { following: followingUsers },
-            },
-          });
-          console.log(response);
-        } catch (error) {
-          console.log(error);
-        }
-      }
+  async function unfollowUser(isFollowing: number, name: string) {
+    const filterFollowing = followingUsers.filter(
+      (user) => user !== isFollowing
+    );
+    try {
+      const response = await api.get(`/users/${userLogedID}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        data: { following: filterFollowing },
+      });
+      setFollowingUsers(filterFollowing);
+      toast.warning(`Você não segue mais ${name}`);
+    } catch (error) {
+      console.log(error);
     }
+    console.log(followingUsers);
   }
-
-  // async function unfollowUser(id: number) {}
 
   const userLogout = () => {
     setUserLogin(null);
@@ -161,7 +187,7 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
         followersPost,
         setFollowersPosts,
         userLogout,
-        followUser,
+        followUnfollowUser,
       }}
     >
       {children}
