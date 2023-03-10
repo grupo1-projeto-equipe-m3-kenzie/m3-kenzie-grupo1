@@ -121,15 +121,18 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
   }
 
   async function followUser(id: number, name: string) {
+    console.log("seguir");
     setFollowingUsers([...followingUsers, id]);
+    console.log(followingUsers);
     try {
-      const response = await api.get(`/users/${userLogedID}`, {
+      const response = await api.patch(`/users/${userLogedID}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         data: { following: followingUsers },
       });
+      console.log(response);
       toast.success(`Você está seguindo ${name}`);
     } catch (error) {
       console.log(error);
@@ -137,11 +140,12 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
   }
 
   async function unfollowUser(isFollowing: number, name: string) {
+    console.log("deixar de seguir");
     const filterFollowing = followingUsers.filter(
       (user) => user !== isFollowing
     );
     try {
-      const response = await api.get(`/users/${userLogedID}`, {
+      const response = await api.patch(`/users/${userLogedID}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
