@@ -9,10 +9,11 @@ import {
   IPost,
   IPostContext,
 } from "./@types";
+import { useNavigate } from "react-router-dom";
 
 export const postsContext = createContext({} as IPostContext);
 export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
-  
+
   const token = localStorage.getItem("@TokenUserAccess");
   const userId = localStorage.getItem("@userIdAccess");
   const postIdLocalStorage = localStorage.getItem("@postId");
@@ -22,6 +23,16 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   const [postId, setPostId] = useState(postIdLocalStorage);
   const [post, setPost] = useState({} as IPost[]);
   const [image, setImage] = useState("");
+
+  const navigate = useNavigate()
+
+  const route = localStorage.getItem("@TokenUserAccess")
+
+  useEffect(()=>{
+    if(!route){
+      navigate("/login")
+    }
+  })
 
   const functionPostRegister = async (data: ICreatePost) => {
     data.name = infoUser;
@@ -35,6 +46,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         });
         setPosts([...posts, response.data]);
         setPostId(response.data.id);
+        navigate("/readPost")
         toast.success("post created successfully");
         console.log(response.data.id);
       } catch (error: any) {
