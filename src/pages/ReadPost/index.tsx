@@ -11,19 +11,18 @@ import { IComments } from "../../providers/@types";
 import { set } from "react-hook-form/dist/utils";
 
 export function ReadPost() {
-  const { postId, renderPost, post, image, submitComment, setPostId } =
-    useContext(postsContext);
+  const {
+    postId,
+    renderPost,
+    post,
+    image,
+    submitComment,
+    setPostId,
+    getPostId,
+  } = useContext(postsContext);
 
   useEffect(() => {
-    if (postId !== 0) {
-      localStorage.setItem("@postId", String(postId));
-    }
-
-    if (postId === 0) {
-       const post= localStorage.getItem("@postId")
-        // setPostId(post)
-    }
-
+    getPostId();
     renderPost();
   }, []);
 
@@ -38,11 +37,6 @@ export function ReadPost() {
   } = useForm<IComments>({
     resolver: yupResolver(formSchema),
   });
-
-  function onSubmit(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    event.preventDefault();
-    handleSubmit(submitComment);
-  }
 
   return (
     <>
@@ -69,7 +63,9 @@ export function ReadPost() {
             placeholder="Deixe seu comentário..."
             {...register("description")}
           />
-          <button type="submit">Comentar</button>
+          <button type="submit" onClick={(event) => event.preventDefault()}>
+            Comentar
+          </button>
         </form>
       </div>
     </>
