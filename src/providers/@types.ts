@@ -74,8 +74,6 @@ export interface IUser {
   id: number;
 }
 
-
-
 export interface IUserContext {
   userLogin: ILoginUser | null;
   setUserLogin: React.Dispatch<React.SetStateAction<ILoginUser | null>>;
@@ -99,12 +97,13 @@ export interface IPostContext {
   functionPostRegister: (data: ICreatePost) => Promise<void>;
   setInfoUser: React.Dispatch<React.SetStateAction<string>>;
   infoUser: string;
-  postId: number;
-  setPostId: React.Dispatch<React.SetStateAction<number>>;
+  postId:  string | null;
+  setPostId: React.Dispatch<React.SetStateAction<string | null>>;
   renderPost(): Promise<void>;
   post: ICreatePost[] | [];
   setPost: React.Dispatch<React.SetStateAction<ICreatePost[]>>;
   userImage(): Promise<void>;
   image: string;
-  submitComment(data: IComments): Promise<void>
+  submitComment(data: IComments): Promise<void>;
+  getPostId(): Promise<void>;
 }
