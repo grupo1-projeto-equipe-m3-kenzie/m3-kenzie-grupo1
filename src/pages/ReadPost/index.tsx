@@ -31,7 +31,7 @@ export function ReadPost() {
     description: yup.string().required("O comentário não pode estar vazio"),
   });
   const navigate = useNavigate();
-  const route = localStorage.getItem("@TokenUserAcess");
+  const route = localStorage.getItem("@TokenUserAccess");
   useEffect(() => {
     if (!route) {
       navigate("/login");
