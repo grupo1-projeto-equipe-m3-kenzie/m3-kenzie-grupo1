@@ -26,13 +26,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
 
   const navigate = useNavigate()
 
-  const route = localStorage.getItem("@TokenUserAccess")
-
-  useEffect(()=>{
-    if(!route){
-      navigate("/login")
-    }
-  })
+ 
 
   const functionPostRegister = async (data: ICreatePost) => {
     data.name = infoUser;
