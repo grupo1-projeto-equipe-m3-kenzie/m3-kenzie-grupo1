@@ -82,12 +82,14 @@ export interface IUserContext {
   lastPosts: IPosts[] | [];
   setLastPosts: React.Dispatch<React.SetStateAction<[] | IPosts[]>>;
   listLastPosts: () => Promise<void>;
-  followersPost: [] | IPosts[];
+  followersPosts: [] | IPosts[];
   setFollowersPosts: React.Dispatch<React.SetStateAction<[] | IPosts[]>>;
-  listFollowersPosts: (users: number[]) => Promise<void>;
+  listFollowersPosts: () => Promise<void>;
   followingUsers: number[] | [];
   setFollowingUsers: React.Dispatch<React.SetStateAction<number[] | []>>;
-  followUser(id: number): Promise<void>;
+  followUnfollowUser(id: number, name: string): Promise<void>;
+  followUser(id: number, name: string): Promise<void>;
+  unfollowUser(isFollowing: number, name: string): Promise<void>;
   userLogout: () => void;
 }
 
@@ -97,7 +99,7 @@ export interface IPostContext {
   functionPostRegister: (data: ICreatePost) => Promise<void>;
   setInfoUser: React.Dispatch<React.SetStateAction<string>>;
   infoUser: string;
-  postId:  string | null;
+  postId: string | null;
   setPostId: React.Dispatch<React.SetStateAction<string | null>>;
   renderPost(): Promise<void>;
   post: ICreatePost[] | [];

@@ -15,19 +15,15 @@ import {
 export const userContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: IDefaultPropsChildren) => {
-  const navigate = useNavigate();
-
-  // Usuário logado
   const [userLogin, setUserLogin] = useState<ILoginUser | null>(null);
-  // Lista dos últimos posts
   const [lastPosts, setLastPosts] = useState<IPosts[] | []>([]);
-  // Lista dos posts seguindo
-  const [followersPost, setFollowersPosts] = useState<IPosts[] | []>([]);
-  // Lista de seguidores
+  const [followersPosts, setFollowersPosts] = useState<IPosts[] | []>([]);
   const [followingUsers, setFollowingUsers] = useState<number[] | []>([]);
 
   const token = localStorage.getItem("@TokenUserAccess");
-  //const userLogedID = localStorage.getItem("@userIdAccess");
+  const userLogedID = localStorage.getItem("@userIdAccess");
+
+  const navigate = useNavigate();
 
   const functionLogin = async (data: ILoginForm) => {
     try {
@@ -37,8 +33,9 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
       localStorage.setItem("@TokenUserAccess", response.data.accessToken);
       localStorage.setItem("@userIdAccess", response.data.user.id);
       setUserLogin(response.data.user);
+      setFollowersPosts(response.data.user.following);
+      setFollowingUsers(response.data.user.following);
       listLastPosts();
-      listFollowersPosts(response.data.user.following);
       navigate("/Dashboard");
     } catch (error: any) {
       toast.error(error.response.data);
@@ -49,15 +46,7 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
   const functionRegister = async (data: IRegisterData) => {
     try {
       const response = await api.post("/register", data);
-
-      // let tokenUser = localStorage.setItem(
-      //   "@TokenUserAcess",
-      //   response.data.accessToken
-      // );
-      // let userId = localStorage.setItem("@userIdAcess", response.data.user.id);
-      // setUserLogin(response.data.user);
       navigate("/Dashboard");
-      console.log(response);
     } catch (error: any) {
       toast.error(error.response.data);
       console.log(error);
@@ -65,16 +54,16 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
   };
 
   async function getUser() {
-    const id = localStorage.getItem("@userIdAccess");
-    if (id) {
+    if (token && userLogedID) {
       try {
-        const response = await api.get(`/users/${id}`, {
+        const response = await api.get(`/users/${userLogedID}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("@TokenUserAccess")}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         setUserLogin(response.data);
-        listFollowersPosts(response.data.following);
+        setFollowersPosts(response.data.following);
+        setFollowingUsers(response.data.following);
       } catch (error) {
         console.log(error);
       }
@@ -94,41 +83,70 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
     }
   }
 
-  async function listFollowersPosts(following: number[]) {
-    const endPoint = following
-      .map((followId) => `userId=${followId}&`)
-      .join("");
+  async function listFollowersPosts() {
+    console.log(followingUsers);
+
+    if (followingUsers.length !== 0) {
+      const endPoint = followingUsers
+        .map((followId) => `userId=${followId}&`)
+        .join("");
+      try {
+        const response = await api.get(`/posts?${endPoint}`);
+        setFollowersPosts(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
+  async function followUnfollowUser(id: number, name: string) {
+    console.log(followingUsers);
+
+    if (token) {
+      const isFollowing = followingUsers.find((follow) => follow === id);
+      if (Number(userLogedID) === id) {
+        toast.info("Opa! Esse post pertence a você");
+      } else if (isFollowing) {
+        unfollowUser(isFollowing, name);
+      } else {
+        followUser(id, name);
+      }
+    }
+  }
+
+  async function followUser(id: number, name: string) {
+    const newFollowingUsers = [...followingUsers, id];
     try {
-      const response = await api.get(`/posts?${endPoint}`);
-      setFollowersPosts(response.data);
+      const data = { following: newFollowingUsers };
+      const response = await api.patch(`/users/${userLogedID}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setFollowingUsers(newFollowingUsers);
+      toast.success(`Você está seguindo ${name}`);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function followUser(id: number) {
-    if (userLogin && token) {
-      const ifFollowing = userLogin.following.find((idUser) => id === idUser);
-      setFollowingUsers([...userLogin.following, id]);
-      if (ifFollowing) {
-        toast.error("Você já segue esse usuário");
-      } else {
-        try {
-          const response = await api.patch(`/users/${userLogin.id}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              data: { following: followingUsers },
-            },
-          });
-          console.log(response);
-        } catch (error) {
-          console.log(error);
-        }
-      }
+  async function unfollowUser(isFollowing: number, name: string) {
+    const filterFollowing = followingUsers.filter(
+      (user) => user !== isFollowing
+    );
+    try {
+      const data = { following: filterFollowing };
+      const response = await api.patch(`/users/${userLogedID}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setFollowingUsers(filterFollowing);
+      toast.warning(`Você não está mais seguindo ${name}`);
+    } catch (error) {
+      console.log(error);
     }
   }
-
-  // async function unfollowUser(id: number) {}
 
   const userLogout = () => {
     setUserLogin(null);
@@ -137,13 +155,12 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
     navigate("/");
   };
 
-  // useEffect(() => {
-  //   const userToken = localStorage.getItem("@TokenUserAccess");
-  //   if (userToken) {
-  //     getUser();
-  //     listLastPosts();
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (token) {
+      getUser();
+      listLastPosts();
+    }
+  }, []);
 
   return (
     <userContext.Provider
@@ -158,10 +175,12 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
         followingUsers,
         setFollowingUsers,
         listFollowersPosts,
-        followersPost,
+        followersPosts,
         setFollowersPosts,
         userLogout,
+        followUnfollowUser,
         followUser,
+        unfollowUser,
       }}
     >
       {children}

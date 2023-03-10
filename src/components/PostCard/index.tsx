@@ -1,8 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { IPosts } from "../../providers/@types";
 import { postsContext } from "../../providers/postsContext";
 import { userContext } from "../../providers/userContext";
+import { PostCardStyled } from "./style";
 
 export const PostCard = ({
   id,
@@ -15,24 +16,19 @@ export const PostCard = ({
   country,
   description,
 }: IPosts) => {
-  const { followUser } = useContext(userContext);
+  const { followingUsers, followUnfollowUser } = useContext(userContext);
   const { setPostId } = useContext(postsContext);
 
-  const [following, setFollowing] = useState<string | "">("Seguir");
-
-  function follow() {
-    followUser(userId);
-    if (following === "Seguir") {
-      setFollowing("Seguindo");
-    } else {
-      setFollowing("Seguir");
-    }
-  }
-  
   return (
-    <li key={id}>
+    <PostCardStyled>
       <p>{name}</p>
-      <button onClick={() => follow()}>{following}</button>
+      {followingUsers.find((follow) => follow === userId) ? (
+        <button onClick={() => followUnfollowUser(userId, name)}>
+          Seguindo
+        </button>
+      ) : (
+        <button onClick={() => followUnfollowUser(userId, name)}>Seguir</button>
+      )}
       <img src={img} alt="imagem" />
       <p>{title}</p>
       <p>{state}</p>
@@ -42,6 +38,6 @@ export const PostCard = ({
       <Link to={"/ReadPost"} onClick={() => setPostId(String(id))}>
         Abrir publicação
       </Link>
-    </li>
+    </PostCardStyled>
   );
 };
