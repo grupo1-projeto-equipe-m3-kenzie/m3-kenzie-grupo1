@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ICreatePost, IDefaultPropsChildren, IPost, IPostContext } from "./@types";
+import { IComments, ICreatePost, IDefaultPropsChildren, IPost, IPostContext } from "./@types";
 
 export const postsContext = createContext({} as IPostContext);
 export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
@@ -51,6 +51,10 @@ async function renderPost() {
       toast.error(error.response.data.message);
     }
   }
+
+async function submitComment(data:IComments){
+ console.log(data)
+}
 
   async function userImage() {
     let userId = localStorage.getItem("@userIdAccess")
@@ -103,6 +107,7 @@ async function renderPost() {
         setPost,
         image,
         userImage,
+        submitComment,
       }}
     >
       {children}

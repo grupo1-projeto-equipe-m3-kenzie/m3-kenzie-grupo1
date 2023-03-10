@@ -7,11 +7,28 @@ import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import { IComments } from "../../providers/@types";
 
 export function ReadPost() {
-  const { postId, renderPost, post, image } = useContext(postsContext);
+  const { postId, renderPost, post, image,submitComment } = useContext(postsContext);
 
-  renderPost();
+
+  useEffect(()=>{
+
+    renderPost();
+  },[])
+
+   const formSchema = yup.object().shape({
+    description:yup.string().required("O comentário não pode estar vazio")
+   })
+
+   const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IComments>({
+    resolver: yupResolver(formSchema),
+  });
 
   return (
     <>
@@ -20,11 +37,27 @@ export function ReadPost() {
           <img src={image} alt="imagem"></img>
           <div>
           <h3> {post[0]?.name} </h3>
-          
+          <p>{post[0]?.city}</p>
+          <p>{post[0]?.state}</p>
           </div>
-
+          <button>Seguir</button>
         </header>
-        <p>{postId}</p>
+        <img src={post[0]?.img}></img>
+        <h3>{post[0]?.title}</h3>
+        <p>{post[0]?.description}</p>
+      </div>
+
+      <div>
+
+      <h2>Comentários</h2>
+      <form >
+      <input
+            type="text"
+            placeholder="Deixe seu comentário..."
+            {...register("description")}
+          />
+          <button type="submit">Comentar</button>
+      </form>
       </div>
     </>
   );
