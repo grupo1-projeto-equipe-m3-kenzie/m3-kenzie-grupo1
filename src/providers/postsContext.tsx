@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 
 export const postsContext = createContext({} as IPostContext);
 export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
-
   const token = localStorage.getItem("@TokenUserAccess");
   const userId = localStorage.getItem("@userIdAccess");
   const postIdLocalStorage = localStorage.getItem("@postId");
@@ -24,9 +23,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   const [post, setPost] = useState({} as IPost[]);
   const [image, setImage] = useState("");
 
-  const navigate = useNavigate()
-
- 
+  const navigate = useNavigate();
 
   const functionPostRegister = async (data: ICreatePost) => {
     data.name = infoUser;
@@ -40,11 +37,12 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         });
         setPosts([...posts, response.data]);
         setPostId(response.data.id);
-        navigate("/readPost")
+        navigate("/readPost");
         toast.success("post created successfully");
         console.log(response.data.id);
       } catch (error: any) {
         toast.error(error.response.data.message);
+        navigate("/login");
         console.log(error);
       }
     }

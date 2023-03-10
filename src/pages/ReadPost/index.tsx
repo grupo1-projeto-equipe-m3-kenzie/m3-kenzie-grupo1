@@ -9,6 +9,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { IComments } from "../../providers/@types";
 import { set } from "react-hook-form/dist/utils";
+import { useNavigate } from "react-router-dom";
 
 export function ReadPost() {
   const {
@@ -29,6 +30,13 @@ export function ReadPost() {
   const formSchema = yup.object().shape({
     description: yup.string().required("O comentário não pode estar vazio"),
   });
+  const navigate = useNavigate();
+  const route = localStorage.getItem("@TokenUserAccess");
+  useEffect(() => {
+    if (!route) {
+      navigate("/login");
+    }
+  }, []);
 
   const {
     register,
