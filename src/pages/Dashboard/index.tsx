@@ -4,9 +4,10 @@ import { LastPostsList } from "../../components/LastPostsList";
 import { userContext } from "../../providers/userContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { DashboardStyled } from "./style";
 
 export function Dashboard() {
-  const { lastPosts, followersPost, userLogout } = useContext(userContext);
+  const { userLogout } = useContext(userContext);
   const navigate = useNavigate();
   //const route = localStorage.getItem("@tokenUserAcess"); //@tokenUserAcess
   useEffect(() => {

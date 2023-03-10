@@ -1,16 +1,21 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { userContext } from "../../providers/userContext";
 import { PostCard } from "../PostCard";
 import { FollowingPostsStyled } from "./style";
 
 export const FollowingPosts = () => {
-  const { followersPost } = useContext(userContext);
+  const { followingUsers, followersPosts, listFollowersPosts } =
+    useContext(userContext);
+
+  useEffect(() => {
+    listFollowersPosts();
+  }, [followingUsers]);
 
   return (
     <div>
       <h2>SEGUINDO</h2>
       <FollowingPostsStyled>
-        {followersPost.map((follow) => (
+        {followersPosts.map((follow) => (
           <PostCard
             key={follow.id}
             id={follow.id}

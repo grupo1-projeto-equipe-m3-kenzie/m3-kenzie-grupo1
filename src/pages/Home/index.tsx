@@ -1,9 +1,12 @@
-export function Home(){
+import { Link } from "react-router-dom";
 
-    return(
-        <>
-        <h1> Em construção</h1>
-        <p>Partiu codar!</p>
-        </>
-    )
+export function Home() {
+  return (
+    <>
+      <h1> Em construção</h1>
+      <p>Partiu codar!</p>
+      <Link to={"/Login"}>Login</Link>
+      <Link to={"/Register"}>Cadastro</Link>
+    </>
+  );
 }
