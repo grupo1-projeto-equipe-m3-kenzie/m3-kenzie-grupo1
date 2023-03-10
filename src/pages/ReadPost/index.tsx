@@ -1,9 +1,10 @@
 import { Axios } from "axios";
 import { v4 as uuid } from "uuid";
 import { api } from "../../services/api";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function ReadPost() {
-
   const userID = 1;
   const postNumber = 2;
 
@@ -14,14 +15,17 @@ export function ReadPost() {
           Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
         },
       });
-     
     } catch (error) {
       console.log(error);
     }
   }
-
-
-  
+  const navigate = useNavigate();
+  const route = localStorage.getItem("@TokenUserAcess");
+  useEffect(() => {
+    if (!route) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <>

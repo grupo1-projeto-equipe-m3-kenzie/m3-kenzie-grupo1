@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { InputsLogin } from "./styleinput";
 import { LabelInputLogin } from "./styleinput";
+import { FieldInputLogin } from "./styleinput";
 interface IpropsInput {
   register: UseFormRegisterReturn<string>;
   errors?: any;
@@ -11,10 +12,10 @@ interface IpropsInput {
 }
 export const Input = ({ register, errors, label, type }: IpropsInput) => {
   return (
-    <fieldset>
+    <FieldInputLogin>
       <LabelInputLogin>{label}</LabelInputLogin>
       <InputsLogin type={type} {...register} />
       <p>{errors}</p>
-    </fieldset>
+    </FieldInputLogin>
   );
 };

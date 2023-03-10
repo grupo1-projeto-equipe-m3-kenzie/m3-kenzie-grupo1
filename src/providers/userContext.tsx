@@ -70,8 +70,14 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
       // );
       // let userId = localStorage.setItem("@userIdAcess", response.data.user.id);
       // setUserLogin(response.data.user);
-      navigate("/Dashboard");
+
       console.log(response);
+      let tokenUser = localStorage.setItem(
+        "@tokenUserAcess",
+        response.data.accessToken
+      );
+      let userId = localStorage.setItem("@userIdAcess", response.data.user.id);
+      navigate("/Dashboard");
     } catch (error: any) {
       toast.error(error.response.data);
       console.log(error);

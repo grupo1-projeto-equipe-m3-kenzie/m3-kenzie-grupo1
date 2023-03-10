@@ -3,6 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { userContext } from "../../providers/userContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface iRegisterData {
   name: string;

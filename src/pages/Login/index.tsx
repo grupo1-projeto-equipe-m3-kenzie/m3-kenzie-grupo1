@@ -5,7 +5,7 @@ import { Input } from "./inputLogin";
 import { useContext } from "react";
 import { userContext } from "../../providers/userContext";
 import imgBodyLogin from "../../assets/hero-home-1 1.png";
-import { ImgBody } from "./style";
+import { ImgBody, SectionImg } from "./style";
 import { Form } from "./style";
 import { Header } from "./style";
 import logoAcess from "../../assets/Anchor-logo 1.png";
@@ -31,26 +31,28 @@ export function Login() {
 
   return (
     <>
-      <ImgBody src={imgBodyLogin} />
-      <Header>
-        <img src={logoAcess} /> <Link to="/register">Register</Link>
-      </Header>
-      <Form onSubmit={handleSubmit(functionLogin)}>
-        <h1>Login</h1>
-        <Input
-          label="Email"
-          errors={errors.email?.message}
-          register={register("email")}
-          type="email"
-        />
-        <Input
-          label="Senha"
-          errors={errors.password?.message}
-          register={register("password")}
-          type="password"
-        />
-        <button type="submit">Entrar</button>
-      </Form>
+      <SectionImg>
+        <ImgBody src={imgBodyLogin} />
+        <Header>
+          <img src={logoAcess} /> <Link to="/register">Register</Link>
+        </Header>
+        <Form onSubmit={handleSubmit(functionLogin)}>
+          <h1>Login</h1>
+          <Input
+            label="Email"
+            errors={errors.email?.message}
+            register={register("email")}
+            type="email"
+          />
+          <Input
+            label="Senha"
+            errors={errors.password?.message}
+            register={register("password")}
+            type="password"
+          />
+          <button type="submit">Entrar</button>
+        </Form>
+      </SectionImg>
     </>
   );
 }

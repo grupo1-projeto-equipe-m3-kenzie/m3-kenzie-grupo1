@@ -4,8 +4,8 @@ export const InputsLogin = styled.input`
   height: 30px;
   background: #d9d9d9;
   border-radius: 4px;
-  margin-top: -6px;
-  margin-bottom: -6px;
+  margin-top: -50px;
+  margin-bottom: -50px;
   padding-top: 0px;
   padding-bottom: 0px;
 `;
@@ -18,4 +18,6 @@ export const LabelInputLogin = styled.label`
 
   color: #000000;
 `;
-export const FieldInputLogin = styled.fieldset``;
+export const FieldInputLogin = styled.fieldset`
+  border: none;
+`;

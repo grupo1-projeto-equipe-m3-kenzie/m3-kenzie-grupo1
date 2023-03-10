@@ -21,6 +21,8 @@ import { ICreatePost, IDefaultPropsChildren, IPostContext } from "./@types";
 // }
 export const postsContext = createContext({} as IPostContext);
 export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
+  const navigate = useNavigate();
+
   const token = localStorage.getItem("@TokenUserAcess");
   const userId = localStorage.getItem("@userIdAcess");
   const [posts, setPosts] = useState([] as ICreatePost[]);
@@ -37,8 +39,10 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
       console.log(response);
       setPostId(response.data.id);
       toast.success("post created successfully");
+      navigate("/ReadPost");
     } catch (error: any) {
       toast.error(error.response.data.message);
+      navigate("/login");
       console.log(error);
     }
   };

@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { dashboardContext } from "../../providers/dashboardContext";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export function Dashboard() {
   const { newPosts, followingUsers, viewPost } = useContext(dashboardContext);
@@ -9,7 +11,13 @@ export function Dashboard() {
   //   "@TokenUserAcess",
   //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkdWFyZG9Aa2VuemllLmNvbSIsImlhdCI6MTY3ODE5NjQ5MCwiZXhwIjoxNjc4MjAwMDkwLCJzdWIiOiI1In0.TGbe8g1swFCXHyLq01X6KX3EdlosQYHvmBGuknnB08o"
   // );
-
+  const navigate = useNavigate();
+  const route = localStorage.getItem("@tokenUserAcess"); //@tokenUserAcess
+  useEffect(() => {
+    if (!route) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <>
       <ul>
