@@ -103,25 +103,27 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
 
   async function updateComment(response: IUser, comments: IComments) {
 
-    let newComment= [{description:comments.description,name:response.name, img:response.img}]
+    let newComment= {description:comments.description,name:response.name, img:response.img}
     
-    
+     
     console.log(newComment);
-    let data= {comments:[comments, ...newComment]}
+    
+    // let data= {comments:[newComment]}
+    let data = {comments:post[0].comments,}
     console.log(data)
     
 
-    // try {
-    //   const data = newComment;
-    //   const response = await api.patch(`/posts/${post[0].id}`, data, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   });
-    //   toast.warning(`Comentário publicado com sucesso!`);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const response = await api.patch(`/posts/${post[0].id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.info(`Comentário publicado com sucesso!`);
+      console.log(response.data)
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function userImage() {
