@@ -23,7 +23,9 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   const [postId, setPostId] = useState(postIdLocalStorage);
   const [post, setPost] = useState({} as IPost[]);
   const [image, setImage] = useState("");
-  const [allComments, setAllComments] = useState({} as IPost)
+  const [allComments, setAllComments] = useState({} as IPost);
+  const [userFollowing, setUserFollowing] = useState([0]);
+  const [userFollowPost,setUserFollowPost] = useState(false)
 
   const navigate = useNavigate();
 
@@ -52,7 +54,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
 
   async function getPostId() {
     const id = localStorage.getItem("@postId");
-    
+
     try {
       const response = await api.get(`/posts/${postId}`, {
         headers: {
@@ -60,41 +62,38 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         },
       });
       const post = localStorage.setItem("@postId", response.data.id);
-     
+
       setPostId(id);
-      setAllComments(response.data)
+      setAllComments(response.data);
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
-    
   }
 
   async function renderPost() {
-    
     try {
       const response = await api.get(`/posts/${postId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
         },
       });
-      
+
       setPost([response.data]);
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
-    
   }
 
   async function submitComment(data: IComments) {
     const userId = localStorage.getItem("@userIdAccess");
-   
+
     try {
       const response = await api.get(`/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
         },
       });
-    
+
       updateComment(response.data, data);
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -102,18 +101,16 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   }
 
   async function updateComment(postComments: IUser, comments: IComments) {
+    let newComment = {
+      description: comments.description,
+      name: postComments.name,
+      img: postComments.img,
+    };
 
-    let newComment= {description:comments.description,name:postComments.name, img:postComments.img}
-    
-     
-    
-    
-    let userComment= {comments:[newComment]}
-    let data = {comments:post[0].comments}
-    
-    data.comments.push(newComment)
-    
-    
+    let userComment = { comments: [newComment] };
+    let data = { comments: post[0].comments };
+
+    data.comments.push(newComment);
 
     try {
       const response = await api.patch(`/posts/${post[0].id}`, data, {
@@ -122,12 +119,11 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         },
       });
       toast.info(`Comentário publicado com sucesso!`);
-      
-      setAllComments(response.data)
+
+      setAllComments(response.data);
     } catch (error) {
       console.log(error);
     }
-    
   }
 
   async function userImage() {
@@ -138,7 +134,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
           Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
         },
       });
-     
+
       setImage(response.data.img);
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -154,13 +150,42 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        
+
         setInfoUser(response.data.name);
       } catch (error: any) {
         console.log(error);
       }
     }
   };
+
+  async function getUser() {
+    let loggedUserId = localStorage.getItem("@userIdAccess");
+    try {
+      const response = await api.get(`/users/${loggedUserId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUserFollowing(response.data.following);
+      checkUserFollow()
+    } catch (error: any) {
+      console.log(error);
+    }
+  }
+
+  function checkUserFollow(){
+    let id= localStorage.getItem("@postId")
+     userFollowing.map((element)=>{
+      console.log(element, Number(id))
+  if(element == Number(id)){
+    console.log(element, id)
+    setUserFollowPost(true)
+    console.log("2")
+  }    
+  console.log(element)
+    })
+  }
 
   useEffect(() => {
     searchNameUser();
@@ -184,7 +209,13 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         submitComment,
         getPostId,
         allComments,
-        setAllComments
+        setAllComments,
+        getUser,
+        userFollowing,
+        setUserFollowing,
+        userFollowPost,
+        setUserFollowPost,
+
       }}
     >
       {children}
