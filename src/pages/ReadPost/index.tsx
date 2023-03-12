@@ -25,13 +25,17 @@ export function ReadPost() {
     setUserFollowing,
     userFollowPost,
     setUserFollowPost,
+    followId
+   
   } = useContext(postsContext);
 
   useEffect(() => {
+    setUserFollowPost(false)
     getPostId();
     renderPost();
-    getUser()
-  }, []);
+    getUser();
+    
+  }, [followId]);
 
   const formSchema = yup.object().shape({
     description: yup.string().required("O comentário não pode estar vazio"),
@@ -45,8 +49,10 @@ export function ReadPost() {
     resolver: yupResolver(formSchema),
   });
 
+
   // console.log(allComments)
-  console.log(userFollowing)
+
+  console.log(userFollowing);
 
   return (
     <>
@@ -58,8 +64,11 @@ export function ReadPost() {
             <p>{post[0]?.city}</p>
             <p>{post[0]?.state}</p>
           </div>
-          {userFollowPost? (<button onClick={() => setUserFollowPost(false)}>Seguindo </button> ) : (<button onClick={() => setUserFollowPost(true)}>Seguir </button> )}
-          
+          {userFollowPost ? (
+            <button onClick={() => setUserFollowPost(false)}>Seguindo </button>
+          ) : (
+            <button onClick={() => setUserFollowPost(true)}>Seguir </button>
+          )}
         </header>
         <img src={post[0]?.img}></img>
         <h3>{post[0]?.title}</h3>

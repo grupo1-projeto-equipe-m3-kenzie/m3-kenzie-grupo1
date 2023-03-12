@@ -25,9 +25,12 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   const [image, setImage] = useState("");
   const [allComments, setAllComments] = useState({} as IPost);
   const [userFollowing, setUserFollowing] = useState([0]);
-  const [userFollowPost,setUserFollowPost] = useState(false)
+  const [userFollowPost, setUserFollowPost] = useState(false);
+  const [postUserId, setPostUserId] = useState(0);
 
   const navigate = useNavigate();
+
+  let followId = 0
 
   const functionPostRegister = async (data: ICreatePost) => {
     data.name = infoUser;
@@ -65,6 +68,9 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
 
       setPostId(id);
       setAllComments(response.data);
+      setPostUserId(response.data.userId);
+      followId= response.data.userId
+      console.log(response.data.userId, "userId");
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
@@ -168,23 +174,27 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         },
       });
       setUserFollowing(response.data.following);
-      checkUserFollow()
+      checkUserFollow(response.data.following);
     } catch (error: any) {
       console.log(error);
     }
   }
 
-  function checkUserFollow(){
-    let id= localStorage.getItem("@postId")
-     userFollowing.map((element)=>{
-      console.log(element, Number(id))
-  if(element == Number(id)){
-    console.log(element, id)
-    setUserFollowPost(true)
-    console.log("2")
-  }    
-  console.log(element)
-    })
+  function checkUserFollow(data: number[] | []) {
+    data.map((element) => {
+      console.log(element, Number(followId));
+      console.log("ola");
+      if (element == Number(followId)) {
+        console.log(
+          element,
+          postUserId,
+          "numero encontrado",
+          "numero do id"
+        );
+        setUserFollowPost(true);
+      }
+      console.log(element);
+    });
   }
 
   useEffect(() => {
@@ -215,7 +225,8 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         setUserFollowing,
         userFollowPost,
         setUserFollowPost,
-
+        checkUserFollow,
+        followId,
       }}
     >
       {children}
