@@ -11,6 +11,8 @@ export interface IPost {
   description: string;
   userId: number;
   name: string;
+  id?: string | number;
+  comments?: IComments;
 }
 
 export interface ICreatePost {
@@ -61,7 +63,9 @@ export interface IPosts {
 }
 
 export interface IComments {
-  description: string;
+  description?: string;
+  name?: string;
+  img?: string;
 }
 
 export interface IUser {

@@ -8,6 +8,7 @@ import {
   IDefaultPropsChildren,
   IPost,
   IPostContext,
+  IUser,
 } from "./@types";
 import { useNavigate } from "react-router-dom";
 
@@ -84,23 +85,44 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   }
 
   async function submitComment(data: IComments) {
-    const userId = localStorage.get("@userIdAccess")
-    console.log("em teste")
- 
-   //  try {
-   //   const response = await api.get(`/users/${userId}`, {
-   //     headers: {
-   //       Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
-   //     },
-   //     const 
-   //   });
-   //   // console.log(response.data);
-   //   setPost([response.data]);
-   // } catch (error: any) {
-   //   toast.error(error.response.data.message);
-   // }
-     
-   }
+    const userId = localStorage.getItem("@userIdAccess");
+    console.log("em teste");
+
+    try {
+      const response = await api.get(`/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
+        },
+      });
+      // console.log(response.data);
+      updateComment(response.data, data);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  }
+
+  async function updateComment(response: IUser, comments: IComments) {
+
+    let newComment= [{description:comments.description,name:response.name, img:response.img}]
+    
+    
+    console.log(newComment);
+    let data= {comments:[comments, ...newComment]}
+    console.log(data)
+    
+
+    // try {
+    //   const data = newComment;
+    //   const response = await api.patch(`/posts/${post[0].id}`, data, {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   });
+    //   toast.warning(`Comentário publicado com sucesso!`);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  }
 
   async function userImage() {
     let userId = localStorage.getItem("@userIdAccess");
