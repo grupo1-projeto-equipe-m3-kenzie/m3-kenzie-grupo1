@@ -25,9 +25,13 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   const [image, setImage] = useState("");
   const [allComments, setAllComments] = useState({} as IPost);
   const [userFollowing, setUserFollowing] = useState([0]);
-  const [userFollowPost,setUserFollowPost] = useState(false)
+  const [userFollowPost, setUserFollowPost] = useState(false);
+  const [postUserId, setPostUserId] = useState(0);
+  const [postOwnerId, setPostOwnerId] = useState(0)
 
   const navigate = useNavigate();
+
+  let followId = 0
 
   const functionPostRegister = async (data: ICreatePost) => {
     data.name = infoUser;
@@ -65,6 +69,9 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
 
       setPostId(id);
       setAllComments(response.data);
+      setPostUserId(response.data.userId);
+      followId= response.data.userId
+      console.log(response.data.userId, "userId");
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
@@ -168,24 +175,67 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         },
       });
       setUserFollowing(response.data.following);
-      checkUserFollow()
+      checkUserFollow(response.data.following);
     } catch (error: any) {
       console.log(error);
     }
   }
 
-  function checkUserFollow(){
-    let id= localStorage.getItem("@postId")
-     userFollowing.map((element)=>{
-      console.log(element, Number(id))
-  if(element == Number(id)){
-    console.log(element, id)
-    setUserFollowPost(true)
-    console.log("2")
-  }    
-  console.log(element)
-    })
+  function checkUserFollow(data: number[] | []) {
+    setPostOwnerId(followId)
+    data.map((element) => {
+      console.log(element, Number(followId));
+      console.log("ola");
+      if (element == Number(followId)) {
+        console.log(
+          element,
+          postUserId,
+          "numero encontrado",
+          "numero do id"
+        );
+        setUserFollowPost(true);
+        // setPostOwnerId(followId)
+      }
+      console.log(element);
+    });
   }
+
+async function followUser(postFollowId: number, userFollowId: number[]){
+  console.log(postFollowId, userFollowId)
+  const newFollowList = [postFollowId,...userFollowId]
+  console.log(newFollowList)
+  const userId = localStorage.getItem("@userIdAccess")
+  try {
+    const data = {following:newFollowList}
+    const response = await api.patch(`/users/${userId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    setUserFollowPost(true)
+    console.log(response.data)
+
+  } catch (error) {
+    
+  }
+}
+
+
+  // async function followUser(id: number) {
+  //   const newFollowingUsers = [...followingUsers, id];
+  //   try {
+  //     const data = { following: newFollowingUsers };
+  //     const response = await api.patch(`/users/${userLogedID}`, data, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     setFollowingUsers(newFollowingUsers);
+  //     toast.success(`Você está seguindo ${name}`);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   useEffect(() => {
     searchNameUser();
@@ -215,7 +265,11 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         setUserFollowing,
         userFollowPost,
         setUserFollowPost,
-
+        checkUserFollow,
+        followId,
+        followUser,
+        postOwnerId,
+        setPostOwnerId,
       }}
     >
       {children}
