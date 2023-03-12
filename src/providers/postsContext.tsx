@@ -23,6 +23,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   const [postId, setPostId] = useState(postIdLocalStorage);
   const [post, setPost] = useState({} as IPost[]);
   const [image, setImage] = useState("");
+  const [allComments, setAllComments] = useState({} as IPost)
 
   const navigate = useNavigate();
 
@@ -40,7 +41,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         setPostId(response.data.id);
         navigate("/readPost");
         toast.success("post created successfully");
-        console.log(response.data.id);
+        // console.log(response.data.id);
       } catch (error: any) {
         toast.error(error.response.data.message);
         navigate("/login");
@@ -51,7 +52,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
 
   async function getPostId() {
     const id = localStorage.getItem("@postId");
-    console.log(id, "primeiro");
+    
     try {
       const response = await api.get(`/posts/${postId}`, {
         headers: {
@@ -59,60 +60,59 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         },
       });
       const post = localStorage.setItem("@postId", response.data.id);
-      console.log(post);
-      console.log(response.data);
+     
       setPostId(id);
+      setAllComments(response.data)
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
-    console.log(id, "segundo");
+    
   }
 
   async function renderPost() {
-    console.log(postId, "render 1");
+    
     try {
       const response = await api.get(`/posts/${postId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
         },
       });
-      // console.log(response.data);
+      
       setPost([response.data]);
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
-    console.log(postId, "render 2");
+    
   }
 
   async function submitComment(data: IComments) {
     const userId = localStorage.getItem("@userIdAccess");
-    console.log("em teste");
-
+   
     try {
       const response = await api.get(`/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
         },
       });
-      // console.log(response.data);
+    
       updateComment(response.data, data);
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
   }
 
-  async function updateComment(response: IUser, comments: IComments) {
+  async function updateComment(postComments: IUser, comments: IComments) {
 
-    let newComment= {description:comments.description,name:response.name, img:response.img}
+    let newComment= {description:comments.description,name:postComments.name, img:postComments.img}
     
      
-    console.log(newComment);
+    
     
     let userComment= {comments:[newComment]}
     let data = {comments:post[0].comments}
     
     data.comments.push(newComment)
-    console.log(data)
+    
     
 
     try {
@@ -122,10 +122,12 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         },
       });
       toast.info(`Comentário publicado com sucesso!`);
-      console.log(response.data)
+      
+      setAllComments(response.data)
     } catch (error) {
       console.log(error);
     }
+    
   }
 
   async function userImage() {
@@ -136,7 +138,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
           Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
         },
       });
-      console.log(response.data);
+     
       setImage(response.data.img);
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -152,7 +154,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        //console.log(response);
+        
         setInfoUser(response.data.name);
       } catch (error: any) {
         console.log(error);
@@ -181,6 +183,8 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         userImage,
         submitComment,
         getPostId,
+        allComments,
+        setAllComments
       }}
     >
       {children}

@@ -67,7 +67,7 @@ export interface IComments {
   name?: string;
   img?: string;
   push?: any;
-} 
+}
 
 export interface IUser {
   email: string;
@@ -113,4 +113,6 @@ export interface IPostContext {
   image: string;
   submitComment(data: IComments): Promise<void>;
   getPostId(): Promise<void>;
+  allComments: IPost;
+  setAllComments: React.Dispatch<React.SetStateAction<IPost>>;
 }

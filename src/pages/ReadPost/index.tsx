@@ -9,7 +9,6 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { IComments } from "../../providers/@types";
 
-
 export function ReadPost() {
   const {
     postId,
@@ -19,6 +18,8 @@ export function ReadPost() {
     submitComment,
     setPostId,
     getPostId,
+    allComments,
+    setAllComments,
   } = useContext(postsContext);
 
   useEffect(() => {
@@ -37,6 +38,8 @@ export function ReadPost() {
   } = useForm<IComments>({
     resolver: yupResolver(formSchema),
   });
+
+  console.log(allComments)
 
   return (
     <>
@@ -66,6 +69,17 @@ export function ReadPost() {
           <button type="submit">Comentar</button>
         </form>
       </div>
+      <ul>
+        {allComments.comments?.map((element: any) => {
+          return (
+            <li key={uuid()}>
+              <img src={element.img} alt="Uma Imagem" />
+              <p>{element.name}</p>
+              <p>{element.description}</p>
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
 }
