@@ -115,4 +115,9 @@ export interface IPostContext {
   getPostId(): Promise<void>;
   allComments: IPost;
   setAllComments: React.Dispatch<React.SetStateAction<IPost>>;
+  getUser(): Promise<void>;
+  userFollowing: number[];
+  setUserFollowing: React.Dispatch<React.SetStateAction<number[]>>;
+  userFollowPost: boolean
+  setUserFollowPost: React.Dispatch<React.SetStateAction<boolean>>
 }

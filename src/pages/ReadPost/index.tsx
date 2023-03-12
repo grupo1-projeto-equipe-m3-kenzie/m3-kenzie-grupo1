@@ -20,11 +20,17 @@ export function ReadPost() {
     getPostId,
     allComments,
     setAllComments,
+    getUser,
+    userFollowing,
+    setUserFollowing,
+    userFollowPost,
+    setUserFollowPost,
   } = useContext(postsContext);
 
   useEffect(() => {
     getPostId();
     renderPost();
+    getUser()
   }, []);
 
   const formSchema = yup.object().shape({
@@ -39,7 +45,8 @@ export function ReadPost() {
     resolver: yupResolver(formSchema),
   });
 
-  console.log(allComments)
+  // console.log(allComments)
+  console.log(userFollowing)
 
   return (
     <>
@@ -51,7 +58,8 @@ export function ReadPost() {
             <p>{post[0]?.city}</p>
             <p>{post[0]?.state}</p>
           </div>
-          <button>Seguir</button>
+          {userFollowPost? (<button onClick={() => setUserFollowPost(false)}>Seguindo </button> ) : (<button onClick={() => setUserFollowPost(true)}>Seguir </button> )}
+          
         </header>
         <img src={post[0]?.img}></img>
         <h3>{post[0]?.title}</h3>
