@@ -12,7 +12,7 @@ export interface IPost {
   userId: number;
   name: string;
   id?: string | number;
-  comments?: IComments;
+  comments?: IComments | any;
 }
 
 export interface ICreatePost {
@@ -66,7 +66,8 @@ export interface IComments {
   description?: string;
   name?: string;
   img?: string;
-}
+  push?: any;
+} 
 
 export interface IUser {
   email: string;
