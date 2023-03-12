@@ -108,8 +108,10 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
      
     console.log(newComment);
     
-    // let data= {comments:[newComment]}
-    let data = {comments:post[0].comments,}
+    let userComment= {comments:[newComment]}
+    let data = {comments:post[0].comments}
+    
+    data.comments.push(newComment)
     console.log(data)
     
 
