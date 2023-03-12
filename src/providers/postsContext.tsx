@@ -27,6 +27,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   const [userFollowing, setUserFollowing] = useState([0]);
   const [userFollowPost, setUserFollowPost] = useState(false);
   const [postUserId, setPostUserId] = useState(0);
+  const [postOwnerId, setPostOwnerId] = useState(0)
 
   const navigate = useNavigate();
 
@@ -181,6 +182,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   }
 
   function checkUserFollow(data: number[] | []) {
+    setPostOwnerId(followId)
     data.map((element) => {
       console.log(element, Number(followId));
       console.log("ola");
@@ -192,10 +194,48 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
           "numero do id"
         );
         setUserFollowPost(true);
+        // setPostOwnerId(followId)
       }
       console.log(element);
     });
   }
+
+async function followUser(postFollowId: number, userFollowId: number[]){
+  console.log(postFollowId, userFollowId)
+  const newFollowList = [postFollowId,...userFollowId]
+  console.log(newFollowList)
+  const userId = localStorage.getItem("@userIdAccess")
+  try {
+    const data = {following:newFollowList}
+    const response = await api.patch(`/users/${userId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    setUserFollowPost(true)
+    console.log(response.data)
+
+  } catch (error) {
+    
+  }
+}
+
+
+  // async function followUser(id: number) {
+  //   const newFollowingUsers = [...followingUsers, id];
+  //   try {
+  //     const data = { following: newFollowingUsers };
+  //     const response = await api.patch(`/users/${userLogedID}`, data, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     setFollowingUsers(newFollowingUsers);
+  //     toast.success(`Você está seguindo ${name}`);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   useEffect(() => {
     searchNameUser();
@@ -227,6 +267,9 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         setUserFollowPost,
         checkUserFollow,
         followId,
+        followUser,
+        postOwnerId,
+        setPostOwnerId,
       }}
     >
       {children}

@@ -25,7 +25,9 @@ export function ReadPost() {
     setUserFollowing,
     userFollowPost,
     setUserFollowPost,
-    followId
+    followId,
+    followUser,
+    postOwnerId,
    
   } = useContext(postsContext);
 
@@ -33,6 +35,12 @@ export function ReadPost() {
     setUserFollowPost(false)
     getPostId();
     renderPost();
+    
+    
+  }, [followId]);
+
+  useEffect(() => {
+  
     getUser();
     
   }, [followId]);
@@ -67,7 +75,7 @@ export function ReadPost() {
           {userFollowPost ? (
             <button onClick={() => setUserFollowPost(false)}>Seguindo </button>
           ) : (
-            <button onClick={() => setUserFollowPost(true)}>Seguir </button>
+            <button onClick={() => followUser(postOwnerId,userFollowing)}>Seguir </button>
           )}
         </header>
         <img src={post[0]?.img}></img>

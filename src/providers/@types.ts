@@ -122,4 +122,7 @@ export interface IPostContext {
   setUserFollowPost: React.Dispatch<React.SetStateAction<boolean>>;
   checkUserFollow(data: number[] | []): void;
   followId: number;
+  followUser(postFollowId: number, userFollowId: number[]): Promise<void>;
+  postOwnerId: number;
+  setPostOwnerId: React.Dispatch<React.SetStateAction<number>>;
 }
