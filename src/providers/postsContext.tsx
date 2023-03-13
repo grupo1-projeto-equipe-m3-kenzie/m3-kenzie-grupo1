@@ -192,8 +192,8 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
           postUserId,
           "numero encontrado",
           "numero do id"
-        );
-        setUserFollowPost(true);
+          );
+          setUserFollowPost(true);
         // setPostOwnerId(followId)
       }
       console.log(element);
@@ -201,9 +201,9 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   }
 
 async function followUser(postFollowId: number, userFollowId: number[]){
-  console.log(postFollowId, userFollowId)
+ 
   const newFollowList = [postFollowId,...userFollowId]
-  console.log(newFollowList)
+  
   const userId = localStorage.getItem("@userIdAccess")
   try {
     const data = {following:newFollowList}
@@ -216,26 +216,34 @@ async function followUser(postFollowId: number, userFollowId: number[]){
     console.log(response.data)
 
   } catch (error) {
-    
+    console.log(error);
   }
 }
 
+async function unfollowUser(postFollowId: number, userFollowId: number[]){
+  console.log(postFollowId, userFollowId)
+  setUserFollowPost(false)
+  
+}
 
-  // async function followUser(id: number) {
-  //   const newFollowingUsers = [...followingUsers, id];
-  //   try {
-  //     const data = { following: newFollowingUsers };
-  //     const response = await api.patch(`/users/${userLogedID}`, data, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     setFollowingUsers(newFollowingUsers);
-  //     toast.success(`Você está seguindo ${name}`);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+// async function unfollowUser(isFollowing: number, name: string) {
+//   const filterFollowing = followingUsers.filter(
+//     (user) => user !== isFollowing
+//   );
+//   try {
+//     const data = { following: filterFollowing };
+//     const response = await api.patch(`/users/${userLogedID}`, data, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     setFollowingUsers(filterFollowing);
+//     toast.warning(`Você não está mais seguindo ${name}`);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
 
   useEffect(() => {
     searchNameUser();
@@ -270,6 +278,7 @@ async function followUser(postFollowId: number, userFollowId: number[]){
         followUser,
         postOwnerId,
         setPostOwnerId,
+        unfollowUser,
       }}
     >
       {children}
