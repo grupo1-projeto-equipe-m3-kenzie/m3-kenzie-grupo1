@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { userContext } from "../../providers/userContext";
 import { PostCard } from "../PostCard";
-import { FollowingPostsStyled } from "./style";
+import { FollowingPostsContainerStyled, FollowingPostsStyled } from "./style";
 import { v4 as uuid } from "uuid";
 
 export const FollowingPosts = () => {
@@ -13,7 +13,7 @@ export const FollowingPosts = () => {
   }, [followingUsers]);
 
   return (
-    <div>
+    <FollowingPostsContainerStyled>
       <h2>SEGUINDO</h2>
       <FollowingPostsStyled>
         {followersPosts.length === 0 ? (
@@ -35,6 +35,6 @@ export const FollowingPosts = () => {
           ))
         )}
       </FollowingPostsStyled>
-    </div>
+    </FollowingPostsContainerStyled>
   );
 };

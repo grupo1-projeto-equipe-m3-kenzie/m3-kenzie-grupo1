@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { userContext } from "../../providers/userContext";
 import { PostCard } from "../PostCard";
-import { LastPostStyled } from "./style";
+import { LastPostsContainerStyled, LastPostStyled } from "./style";
 
 export const LastPostsList = () => {
   const { lastPosts } = useContext(userContext);
+
   return (
-    <div>
+    <LastPostsContainerStyled>
       <h2>NOVIDADES</h2>
       <LastPostStyled>
         {lastPosts.map((post) => (
@@ -24,6 +25,6 @@ export const LastPostsList = () => {
           />
         ))}
       </LastPostStyled>
-    </div>
+    </LastPostsContainerStyled>
   );
 };
