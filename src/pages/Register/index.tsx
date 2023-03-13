@@ -15,6 +15,7 @@ interface iRegisterData {
   password: string;
   confirmPassword: string;
   img: string;
+  following?: number[] | [];
 }
 
 export function Register() {
@@ -47,10 +48,6 @@ export function Register() {
   } = useForm<iRegisterData>({
     resolver: yupResolver(formSchema),
   });
-
-  function onSubmit(data: iRegisterData) {
-    console.log(data);
-  }
 
   return (
     <Background>
