@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 export const Header = styled.header`
   width: 100%;
   height: 55px;
@@ -12,6 +13,7 @@ export const Header = styled.header`
     height: 38px;
     padding-left: 10px;
   }
+
   a {
     margin-left: 1100px;
     border: 1px solid black;
@@ -55,6 +57,7 @@ export const Header = styled.header`
     }
   }
 `;
+
 export const Form = styled.form`
   display: flex;
   flex-direction: column;

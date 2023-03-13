@@ -11,7 +11,6 @@ import {
   IRegisterData,
   IUserContext,
 } from "./@types";
-import { number } from "yup";
 
 export const userContext = createContext({} as IUserContext);
 

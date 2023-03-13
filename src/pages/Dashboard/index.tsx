@@ -3,12 +3,16 @@ import { FollowingPosts } from "../../components/FollowingPosts";
 import { LastPostsList } from "../../components/LastPostsList";
 import { userContext } from "../../providers/userContext";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { DashboardStyled } from "./style";
+import { Link, useNavigate } from "react-router-dom";
+import { DashboardHeaderStyled, DashboardStyled, StyledLink } from "./style";
+import { ImageUserStyled } from "../../components/PostCard/style";
 
 export function Dashboard() {
-  const { userLogout } = useContext(userContext);
+  const { userLogin, userLogout } = useContext(userContext);
+  console.log(userLogin);
+
   const navigate = useNavigate();
+
   useEffect(() => {
     const route = localStorage.getItem("@TokenUserAccess");
     if (!route) {
@@ -19,7 +23,14 @@ export function Dashboard() {
 
   return (
     <DashboardStyled>
-      <button onClick={() => userLogout()}>Sair</button>
+      <DashboardHeaderStyled>
+        <div>
+          <img src={userLogin?.img} alt={userLogin?.name}></img>
+          <h4>Olá, {userLogin?.name}</h4>
+          <StyledLink to={"/CreatePost"}>+</StyledLink>
+        </div>
+        <button onClick={() => userLogout()}>Sair</button>
+      </DashboardHeaderStyled>
       <LastPostsList />
       <FollowingPosts />
     </DashboardStyled>
