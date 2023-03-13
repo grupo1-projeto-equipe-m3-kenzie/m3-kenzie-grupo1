@@ -97,7 +97,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
           Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
         },
       });
-
+      console.log(response.data, data)
       updateComment(response.data, data);
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -111,11 +111,15 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
       img: postComments.img,
     };
 
+    
     let userComment = { comments: [newComment] };
-    let data = { comments: post[0].comments };
+    let data = { comments: post[0].comments};
 
     data.comments.push(newComment);
+    
 
+  //  let  data = { comments: post[0].comments}
+   console.log(data)
     try {
       const response = await api.patch(`/posts/${post[0].id}`, data, {
         headers: {

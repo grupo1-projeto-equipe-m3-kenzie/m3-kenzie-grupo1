@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { IComments } from "../../providers/@types";
 import { HeaderLoggedPages } from "../../components/HeaderLoggedPages";
 import { Main } from "../../components/ReadPostPageComponents/Main";
+import { NewCommentSection } from "../../components/ReadPostPageComponents/NewCommentSection";
 
 export function ReadPost() {
   const {
@@ -35,18 +36,19 @@ export function ReadPost() {
     logOut,
   } = useContext(postsContext);
 
+  
   useEffect(() => {
     getPostId();
     renderPost();
     setUserFollowPost(false);
     userImage()
   }, [followId]);
-
+  
   useEffect(() => {
     getUser();
     setUserFollowPost(false);
   }, [followId]);
-
+  
   const formSchema = yup.object().shape({
     description: yup.string().required("O comentário não pode estar vazio"),
   });
@@ -66,7 +68,28 @@ export function ReadPost() {
     <>
 <HeaderLoggedPages/>
 
-      <Main/>
+<main>
+      <header>
+        <img src={allComments.img} alt="imagem"></img>
+        <div>
+          <h3> {post[0]?.name} </h3>
+          <p>{post[0]?.city}</p>
+          <p>{post[0]?.state}</p>
+        </div>
+        {userFollowPost ? (
+          <button onClick={() => unfollowUser(postOwnerId, userFollowing)}>
+            Seguindo{" "}
+          </button>
+        ) : (
+          <button onClick={() => followUser(postOwnerId, userFollowing)}>
+            Seguir{" "}
+          </button>
+        )}
+      </header>
+      <img src={post[0]?.img}></img>
+      <h3>{post[0]?.title}</h3>
+      <p>{post[0]?.description}</p>
+    </main>
       <div>
         <h2>Comentários</h2>
         <form onSubmit={handleSubmit(submitComment)}>
