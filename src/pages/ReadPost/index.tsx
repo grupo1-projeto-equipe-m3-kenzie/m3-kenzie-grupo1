@@ -8,6 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { IComments } from "../../providers/@types";
+import { HeaderLoggedPages } from "../../components/HeaderLoggedPages";
+import { Main } from "../../components/ReadPostPageComponents/Main";
 
 export function ReadPost() {
   const {
@@ -29,12 +31,15 @@ export function ReadPost() {
     followUser,
     postOwnerId,
     unfollowUser,
+    userImage,
+    logOut,
   } = useContext(postsContext);
 
   useEffect(() => {
     getPostId();
     renderPost();
     setUserFollowPost(false);
+    userImage()
   }, [followId]);
 
   useEffect(() => {
@@ -55,32 +60,13 @@ export function ReadPost() {
   });
 
   console.log(userFollowing);
+  
 
   return (
     <>
-      <div>
-        <header>
-          <img src={allComments.img} alt="imagem"></img>
-          <div>
-            <h3> {post[0]?.name} </h3>
-            <p>{post[0]?.city}</p>
-            <p>{post[0]?.state}</p>
-          </div>
-          {userFollowPost ? (
-            <button onClick={() => unfollowUser(postOwnerId, userFollowing)}>
-              Seguindo{" "}
-            </button>
-          ) : (
-            <button onClick={() => followUser(postOwnerId, userFollowing)}>
-              Seguir{" "}
-            </button>
-          )}
-        </header>
-        <img src={post[0]?.img}></img>
-        <h3>{post[0]?.title}</h3>
-        <p>{post[0]?.description}</p>
-      </div>
+<HeaderLoggedPages/>
 
+      <Main/>
       <div>
         <h2>Comentários</h2>
         <form onSubmit={handleSubmit(submitComment)}>

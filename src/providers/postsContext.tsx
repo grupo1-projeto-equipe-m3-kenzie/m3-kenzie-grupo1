@@ -236,27 +236,14 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
     } catch (error) {
       console.log(error);
     }
-    // try {
-    // } catch (error) {}
+    
   }
 
-  // async function unfollowUser(isFollowing: number, name: string) {
-  //   const filterFollowing = followingUsers.filter(
-  //     (user) => user !== isFollowing
-  //   );
-  //   try {
-  //     const data = { following: filterFollowing };
-  //     const response = await api.patch(`/users/${userLogedID}`, data, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     setFollowingUsers(filterFollowing);
-  //     toast.warning(`Você não está mais seguindo ${name}`);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  function logOut(){
+    localStorage.clear()
+    navigate("/login")
+  }
+
 
   useEffect(() => {
     searchNameUser();
@@ -292,6 +279,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         postOwnerId,
         setPostOwnerId,
         unfollowUser,
+        logOut,
       }}
     >
       {children}
