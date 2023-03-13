@@ -3,9 +3,8 @@ import { FollowingPosts } from "../../components/FollowingPosts";
 import { LastPostsList } from "../../components/LastPostsList";
 import { userContext } from "../../providers/userContext";
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { DashboardHeaderStyled, DashboardStyled, StyledLink } from "./style";
-import { ImageUserStyled } from "../../components/PostCard/style";
 
 export function Dashboard() {
   const { userLogin, userLogout } = useContext(userContext);

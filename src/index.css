@@ -11,10 +11,17 @@ body {
   list-style: none;
   line-height: 150%;
   text-decoration: none;
-  cursor: pointer;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+button {
+  cursor: pointer;
+}
+
+Link {
+  cursor: pointer;
 }
