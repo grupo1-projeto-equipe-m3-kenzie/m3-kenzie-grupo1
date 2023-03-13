@@ -15,20 +15,24 @@ export const FollowingPosts = () => {
     <div>
       <h2>SEGUINDO</h2>
       <FollowingPostsStyled>
-        {followersPosts.map((follow) => (
-          <PostCard
-            key={follow.id}
-            id={follow.id}
-            name={follow.name}
-            userId={follow.userId}
-            img={follow.img}
-            title={follow.title}
-            state={follow.state}
-            city={follow.city}
-            country={follow.country}
-            description={follow.description}
-          />
-        ))}
+        {followersPosts.length === 0 ? (
+          <p>Você não está seguindo ninguém</p>
+        ) : (
+          followersPosts.map((follow) => (
+            <PostCard
+              key={follow.id}
+              id={follow.id}
+              name={follow.name}
+              userId={follow.userId}
+              img={follow.img}
+              title={follow.title}
+              state={follow.state}
+              city={follow.city}
+              country={follow.country}
+              description={follow.description}
+            />
+          ))
+        )}
       </FollowingPostsStyled>
     </div>
   );

@@ -11,6 +11,7 @@ import {
   IRegisterData,
   IUserContext,
 } from "./@types";
+import { number } from "yup";
 
 export const userContext = createContext({} as IUserContext);
 
@@ -44,6 +45,7 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
   };
 
   const functionRegister = async (data: IRegisterData) => {
+    data.following = [];
     try {
       const response = await api.post("/register", data);
       navigate("/Dashboard");
