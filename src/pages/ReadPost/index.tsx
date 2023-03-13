@@ -28,21 +28,20 @@ export function ReadPost() {
     followId,
     followUser,
     postOwnerId,
-   
+    unfollowUser,
   } = useContext(postsContext);
 
+  
   useEffect(() => {
-    setUserFollowPost(false)
     getPostId();
     renderPost();
-    
-    
+    setUserFollowPost(false);
   }, [followId]);
 
+
   useEffect(() => {
-  
     getUser();
-    
+    setUserFollowPost(false);
   }, [followId]);
 
   const formSchema = yup.object().shape({
@@ -57,10 +56,8 @@ export function ReadPost() {
     resolver: yupResolver(formSchema),
   });
 
-
-  // console.log(allComments)
-
   console.log(userFollowing);
+  console.log(allComments.comments[0].img)
 
   return (
     <>
@@ -73,9 +70,11 @@ export function ReadPost() {
             <p>{post[0]?.state}</p>
           </div>
           {userFollowPost ? (
-            <button onClick={() => setUserFollowPost(false)}>Seguindo </button>
+            <button onClick={() => unfollowUser(postOwnerId, userFollowing)}>Seguindo </button>
           ) : (
-            <button onClick={() => followUser(postOwnerId,userFollowing)}>Seguir </button>
+            <button onClick={() => followUser(postOwnerId, userFollowing)}>
+              Seguir{" "}
+            </button>
           )}
         </header>
         <img src={post[0]?.img}></img>

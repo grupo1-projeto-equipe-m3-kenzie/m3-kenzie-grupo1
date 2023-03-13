@@ -27,11 +27,11 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   const [userFollowing, setUserFollowing] = useState([0]);
   const [userFollowPost, setUserFollowPost] = useState(false);
   const [postUserId, setPostUserId] = useState(0);
-  const [postOwnerId, setPostOwnerId] = useState(0)
+  const [postOwnerId, setPostOwnerId] = useState(0);
 
   const navigate = useNavigate();
 
-  let followId = 0
+  let followId = 0;
 
   const functionPostRegister = async (data: ICreatePost) => {
     data.name = infoUser;
@@ -70,7 +70,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
       setPostId(id);
       setAllComments(response.data);
       setPostUserId(response.data.userId);
-      followId= response.data.userId
+      followId = response.data.userId;
       console.log(response.data.userId, "userId");
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -182,17 +182,12 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   }
 
   function checkUserFollow(data: number[] | []) {
-    setPostOwnerId(followId)
+    setPostOwnerId(followId);
     data.map((element) => {
       console.log(element, Number(followId));
       console.log("ola");
       if (element == Number(followId)) {
-        console.log(
-          element,
-          postUserId,
-          "numero encontrado",
-          "numero do id"
-        );
+        console.log(element, postUserId, "numero encontrado", "numero do id");
         setUserFollowPost(true);
         // setPostOwnerId(followId)
       }
@@ -200,38 +195,48 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
     });
   }
 
-async function followUser(postFollowId: number, userFollowId: number[]){
-  console.log(postFollowId, userFollowId)
-  const newFollowList = [postFollowId,...userFollowId]
-  console.log(newFollowList)
-  const userId = localStorage.getItem("@userIdAccess")
-  try {
-    const data = {following:newFollowList}
-    const response = await api.patch(`/users/${userId}`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    setUserFollowPost(true)
-    console.log(response.data)
+  async function followUser(postFollowId: number, userFollowId: number[]) {
+    const newFollowList = [postFollowId, ...userFollowId];
 
-  } catch (error) {
-    
+    const userId = localStorage.getItem("@userIdAccess");
+    try {
+      const data = { following: newFollowList };
+      const response = await api.patch(`/users/${userId}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUserFollowPost(true);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
 
+  async function unfollowUser(postFollowId: number, userFollowId: number[]) {
+    console.log(postFollowId, userFollowId);
+    setUserFollowPost(false);
+    // const removeFollow = userFollowId.filter(
+    //   (unfollowId) => unfollowId !== postFollowId
+    // );
 
-  // async function followUser(id: number) {
-  //   const newFollowingUsers = [...followingUsers, id];
+    // try {
+    // } catch (error) {}
+  }
+
+  // async function unfollowUser(isFollowing: number, name: string) {
+  //   const filterFollowing = followingUsers.filter(
+  //     (user) => user !== isFollowing
+  //   );
   //   try {
-  //     const data = { following: newFollowingUsers };
+  //     const data = { following: filterFollowing };
   //     const response = await api.patch(`/users/${userLogedID}`, data, {
   //       headers: {
   //         Authorization: `Bearer ${token}`,
   //       },
   //     });
-  //     setFollowingUsers(newFollowingUsers);
-  //     toast.success(`Você está seguindo ${name}`);
+  //     setFollowingUsers(filterFollowing);
+  //     toast.warning(`Você não está mais seguindo ${name}`);
   //   } catch (error) {
   //     console.log(error);
   //   }
@@ -270,6 +275,7 @@ async function followUser(postFollowId: number, userFollowId: number[]){
         followUser,
         postOwnerId,
         setPostOwnerId,
+        unfollowUser,
       }}
     >
       {children}

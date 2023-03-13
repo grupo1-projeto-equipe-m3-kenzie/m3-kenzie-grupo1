@@ -125,4 +125,5 @@ export interface IPostContext {
   followUser(postFollowId: number, userFollowId: number[]): Promise<void>;
   postOwnerId: number;
   setPostOwnerId: React.Dispatch<React.SetStateAction<number>>;
+  unfollowUser(postFollowId: number, userFollowId: number[]): Promise<void>
 }
