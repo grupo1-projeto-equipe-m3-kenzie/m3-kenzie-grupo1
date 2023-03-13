@@ -178,6 +178,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   }
 
   function checkUserFollow(data: number[] | []) {
+    
     setPostOwnerId(followId);
     data.map((element) => {
       console.log(element, Number(followId));
@@ -192,7 +193,11 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   }
 
   async function followUser(postFollowId: number, userFollowId: number[]) {
-    const newFollowList = [postFollowId, ...userFollowId];
+
+    const checkList = userFollowId.filter(
+      (unfollowId) => unfollowId !== postFollowId
+    );
+    const newFollowList = [postFollowId, ...checkList];
 
     const userId = localStorage.getItem("@userIdAccess");
     try {
@@ -212,10 +217,25 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   async function unfollowUser(postFollowId: number, userFollowId: number[]) {
     console.log(postFollowId, userFollowId);
     setUserFollowPost(false);
-    // const removeFollow = userFollowId.filter(
-    //   (unfollowId) => unfollowId !== postFollowId
-    // );
+    const removeFollow = userFollowId.filter(
+      (unfollowId) => unfollowId !== postFollowId
+    );
+    console.log(removeFollow);
 
+    const userId = localStorage.getItem("@userIdAccess");
+    const token = localStorage.getItem("@TokenUserAccess");
+
+    try {
+      const data = { following: removeFollow };
+      const response = await api.patch(`/users/${userId}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data)
+    } catch (error) {
+      console.log(error);
+    }
     // try {
     // } catch (error) {}
   }

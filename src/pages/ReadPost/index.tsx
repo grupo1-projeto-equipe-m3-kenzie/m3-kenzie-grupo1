@@ -60,7 +60,7 @@ export function ReadPost() {
     <>
       <div>
         <header>
-          <img src={image} alt="imagem"></img>
+          <img src={allComments.img} alt="imagem"></img>
           <div>
             <h3> {post[0]?.name} </h3>
             <p>{post[0]?.city}</p>
