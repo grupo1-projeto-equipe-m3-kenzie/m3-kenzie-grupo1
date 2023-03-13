@@ -4,6 +4,7 @@ import { HeaderLoggedPages } from "../../components/HeaderLoggedPages";
 import { Main } from "../../components/ReadPostPageComponents/Main";
 import { NewCommentSection } from "../../components/ReadPostPageComponents/NewCommentSection";
 import { PostComments } from "../../components/ReadPostPageComponents/PostComments";
+import { Background } from "./style";
 
 export function ReadPost() {
   const {
@@ -29,10 +30,12 @@ export function ReadPost() {
 
   return (
     <>
-      <HeaderLoggedPages />
+    <Background>
+      <HeaderLoggedPages/>
       <Main/>
       <NewCommentSection />
       <PostComments />
+    </Background>
     </>
   );
 }

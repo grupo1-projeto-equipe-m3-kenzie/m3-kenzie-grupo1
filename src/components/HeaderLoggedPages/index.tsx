@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { postsContext } from "../../providers/postsContext";
+import { ButtonLogOut, HeaderReadPost, PerfilImage } from "./style";
 
 
 export function HeaderLoggedPages() {
@@ -7,10 +8,10 @@ export function HeaderLoggedPages() {
 
   return (
     <>
-    <header>
-      <img src={image}></img>
-      <button onClick={logOut}>LogOut</button>
-    </header>
+    <HeaderReadPost >
+      <PerfilImage src={image}/>
+      <ButtonLogOut onClick={logOut}>LogOut</ButtonLogOut>
+    </HeaderReadPost>
     </>
   );
 }
