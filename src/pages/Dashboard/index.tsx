@@ -9,7 +9,6 @@ import { DashboardStyled } from "./style";
 export function Dashboard() {
   const { userLogout } = useContext(userContext);
   const navigate = useNavigate();
-  //const route = localStorage.getItem("@tokenUserAcess"); //@tokenUserAcess
   useEffect(() => {
     const route = localStorage.getItem("@TokenUserAccess");
     if (!route) {

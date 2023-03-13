@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { userContext } from "../../providers/userContext";
 import { PostCard } from "../PostCard";
 import { FollowingPostsStyled } from "./style";
+import { v4 as uuid } from "uuid";
 
 export const FollowingPosts = () => {
   const { followingUsers, followersPosts, listFollowersPosts } =
@@ -20,7 +21,7 @@ export const FollowingPosts = () => {
         ) : (
           followersPosts.map((follow) => (
             <PostCard
-              key={follow.id}
+              key={uuid()}
               id={follow.id}
               name={follow.name}
               userId={follow.userId}

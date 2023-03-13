@@ -47,7 +47,6 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         setPostId(response.data.id);
         navigate("/readPost");
         toast.success("post created successfully");
-        // console.log(response.data.id);
       } catch (error: any) {
         toast.error(error.response.data.message);
         navigate("/login");
@@ -58,7 +57,6 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
 
   async function getPostId() {
     const id = localStorage.getItem("@postId");
-
     try {
       const response = await api.get(`/posts/${postId}`, {
         headers: {
@@ -66,7 +64,6 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         },
       });
       const post = localStorage.setItem("@postId", response.data.id);
-
       setPostId(id);
       setAllComments(response.data);
       setPostUserId(response.data.userId);
@@ -157,7 +154,6 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
             Authorization: `Bearer ${token}`,
           },
         });
-
         setInfoUser(response.data.name);
       } catch (error: any) {
         console.log(error);
