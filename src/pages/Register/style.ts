@@ -11,7 +11,6 @@ export const ImgHero = styled.img`
 `;
 export const Form = styled.form`
   width: 310px;
-  height: 650px;
   position: absolute;
   top: 200px;
   left: 757px;
@@ -29,6 +28,7 @@ export const Form = styled.form`
   div {
     display: flex;
     flex-direction: column;
+    padding-bottom: 10px;
   }
 
   input {
@@ -73,9 +73,8 @@ export const Form = styled.form`
 `;
 export const Header = styled.header`
   width: 100%;
-  height: 102px;
+  height: 70px;
   position: absolute;
-  bottom: 889px;
   border-bottom: 1px solid white;
   display: flex;
   align-items: center;
@@ -89,38 +88,22 @@ export const Header = styled.header`
     padding-right: 1600px;
   }
   a {
-    margin-top: 58px;
-    margin-left: 950px;
-    text-decoration: none;
-    color: #2d2d2d;
+    width: 125px;
+    height: 40px;
+    background: white;
+    border-radius: 4px;
+    border: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: "Inter";
     font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 30px;
-    background-color: #ffff;
-    padding-left: 13px;
-    padding-right: 13px;
-    border-radius: 6px;
-    padding-top: -6px;
-    padding-bottom: -6px;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 48px;
+    color: black;
+    font-family: "Inter", sans-serif;
+    margin-right: 30px;
+    text-decoration: none;
   }
-`;
-
-export const ButtonLogin = styled.button`
-  width: 125px;
-  height: 40px;
-  background: white;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 23px;
-  line-height: 48px;
-  color: black;
-  font-family: "Inter", sans-serif;
-  margin-right: 30px;
 `;
