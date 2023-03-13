@@ -20,4 +20,7 @@ export const LabelInputLogin = styled.label`
 
   color: #000000;
 `;
-export const FieldInputLogin = styled.fieldset``;
+export const FieldInputLogin = styled.fieldset`
+  border: none;
+  height: 50px;
+`;

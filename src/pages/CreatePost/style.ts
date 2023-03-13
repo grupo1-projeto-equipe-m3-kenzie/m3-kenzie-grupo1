@@ -7,6 +7,7 @@ export const Header = styled.header`
   border-bottom: 2px solid #ffffff;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   img {
     width: 38px;
@@ -15,7 +16,7 @@ export const Header = styled.header`
   }
 
   a {
-    margin-left: 1100px;
+    margin-right: 30px;
     border: 1px solid black;
     padding-left: 20px;
     padding-right: 20px;
@@ -49,8 +50,32 @@ export const Header = styled.header`
     @media (max-width: 480px) {
       margin-left: 150px;
     }
-    @media (max-width: 380px) {
-      margin-left: 50px;
+    @media (max-width: 320px) {
+      width: 400px;
+      height: 55px;
+      background: rgba(3, 3, 3, 0.2);
+      border-bottom: 2px solid #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      img {
+        width: 38px;
+        height: 38px;
+        padding-left: 10px;
+      }
+
+      a {
+        margin-right: 30px;
+        border: 1px solid black;
+        padding-left: 20px;
+        padding-right: 20px;
+        background: #ff0000;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        border-radius: 4px;
+      }
     }
     @media (max-width: 280px) {
       margin-left: 0px;
@@ -70,7 +95,7 @@ export const Form = styled.form`
   }
 
   label {
-    font-family: "Inter";
+    font-family: "Inter", sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
@@ -82,6 +107,7 @@ export const Form = styled.form`
     height: 30px;
     background: #d9d9d9;
     border-radius: 4px;
+    border: none;
     @media (max-width: 950px) {
       width: 650px;
     }
@@ -103,7 +129,7 @@ export const Form = styled.form`
   }
 `;
 export const H1 = styled.h1`
-  font-family: "Inter";
+  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 40px;
@@ -132,7 +158,8 @@ export const DivForm = styled.div`
   height: 940px;
   margin-left: 50px;
   background-color: #ffff;
-  margin-left: 250px; // align-items: center;
+  margin: 0 auto;
+  font-family: "Inter", sans-serif;
   @media (max-width: 1300px) {
     margin: 0 auto;
   }
@@ -197,7 +224,7 @@ export const DivBody = styled.div`
     height: 45px;
     background: #39ac11;
     margin-top: 8px;
-    font-family: "Inter";
+    font-family: "Inter", sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
