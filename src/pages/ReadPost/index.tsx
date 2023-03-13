@@ -55,7 +55,6 @@ export function ReadPost() {
   });
 
   console.log(userFollowing);
-  //console.log(allComments.comments[0].img);
 
   return (
     <>

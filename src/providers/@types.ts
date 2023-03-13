@@ -47,6 +47,7 @@ export interface IRegisterData {
   password: string;
   confirmPassword: string;
   img: string;
+  following?: number[] | []; //colocar interrogação
 }
 
 export interface IPosts {
@@ -125,5 +126,5 @@ export interface IPostContext {
   followUser(postFollowId: number, userFollowId: number[]): Promise<void>;
   postOwnerId: number;
   setPostOwnerId: React.Dispatch<React.SetStateAction<number>>;
-  unfollowUser(postFollowId: number, userFollowId: number[]): Promise<void>
+  unfollowUser(postFollowId: number, userFollowId: number[]): Promise<void>;
 }

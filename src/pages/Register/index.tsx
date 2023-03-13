@@ -5,9 +5,10 @@ import { useContext } from "react";
 import { userContext } from "../../providers/userContext";
 import logoAcess from "../../assets/Anchor-logo 1.png";
 import imgBodyLogin from "../../assets/hero-home-1 1.png";
-import { Background, ImgHero, ButtonLogin } from "./style";
+import { Background, ImgHero } from "./style";
 import { Form } from "./style";
 import { Header } from "./style";
+import { Link } from "react-router-dom";
 
 interface iRegisterData {
   name: string;
@@ -54,11 +55,11 @@ export function Register() {
 
   return (
     <Background>
-      <ImgHero src={imgBodyLogin} />
       <Header>
         <img src={logoAcess} />
-        <ButtonLogin>Login</ButtonLogin>
+        <Link to={"/Login"}>Login</Link>
       </Header>
+      <ImgHero src={imgBodyLogin} />
       <Form className="formRegister" onSubmit={handleSubmit(functionRegister)}>
         <h2>Cadastro</h2>
         <div>

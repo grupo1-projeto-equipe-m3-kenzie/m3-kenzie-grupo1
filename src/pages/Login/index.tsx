@@ -40,10 +40,11 @@ export function Login() {
   }, []);
   return (
     <SectionImg>
-      <ImgBody src={imgBodyLogin} />
       <Header>
-        <img src={logoAcess} /> <Link to="/register">Register</Link>
+        <img src={logoAcess} />
+        <Link to="/register">Register</Link>
       </Header>
+      <ImgBody src={imgBodyLogin} />
       <Form onSubmit={handleSubmit(functionLogin)}>
         <h1>Login</h1>
         <Input
