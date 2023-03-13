@@ -3,11 +3,10 @@ export const InputsLogin = styled.input`
   width: 260px;
   height: 30px;
   background: #d9d9d9;
-  border-radius: 4px;
+  border-radius: 8px;
+  padding-left: 10px;
   margin-top: -6px;
-  margin-bottom: -6px;
-  padding-top: 0px;
-  padding-bottom: 0px;
+  margin-bottom: 10px;
   font-family: "Inter", sans-serif;
   border: none;
 `;
