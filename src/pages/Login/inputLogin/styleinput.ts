@@ -8,10 +8,13 @@ export const InputsLogin = styled.input`
   margin-bottom: -6px;
   padding-top: 0px;
   padding-bottom: 0px;
+  font-family: "Inter", sans-serif;
+  border: none;
 `;
 export const LabelInputLogin = styled.label`
-  font-family: "Inter";
+  font-family: "Inter", sans-serif;
   font-style: normal;
+  border: none;
   font-weight: 500;
   font-size: 20px;
   line-height: 31px;
