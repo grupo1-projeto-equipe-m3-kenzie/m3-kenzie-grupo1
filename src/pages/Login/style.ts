@@ -2,10 +2,18 @@ import styled from "styled-components";
 export const SectionImg = styled.section`
   background-color: black;
   height: 100%;
+
+  @media (max-width: 320px) {
+    height: 1600px;
+  }
 `;
 export const ImgBody = styled.img`
   width: 100%;
   height: 100%;
+  @media (max-width: 320px) {
+    height: 1600px;
+    width: 320px;
+  }
 `;
 export const Form = styled.form`
   width: 310px;
@@ -51,7 +59,7 @@ export const Form = styled.form`
   }
   @media (max-width: 368px) {
     left: 0px;
-    width: 100%;
+    width: 400px;
     max-width: 100%;
   }
   h1 {
@@ -92,19 +100,12 @@ export const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  @media (max-width: 1300px) {
-    bottom: 970px;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 100%;
-  }
 
   img {
     width: 47px;
     height: 47px;
 
     margin-left: 10px;
-    padding-right: 1600px;
   }
   a {
     width: 125px;
@@ -124,33 +125,39 @@ export const Header = styled.header`
     font-family: "Inter", sans-serif;
     margin-right: 30px;
     text-decoration: none;
+  }
 
-    @media (max-width: 1300px) {
-      margin-left: 900px;
+  @media (max-width: 1300px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 320px;
+
+    a {
+      width: 125px;
+      height: 40px;
+      background: white;
+      border-radius: 4px;
+      border: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 23px;
+      line-height: 48px;
+      color: black;
+      font-family: "Inter", sans-serif;
+      margin-right: 30px;
+      text-decoration: none;
     }
-    @media (max-width: 1100px) {
-      margin-left: 800px;
-    }
-    @media (max-width: 967px) {
-      margin-left: 700px;
-    }
-    @media (max-width: 866px) {
-      margin-left: 600px;
-    }
-    @media (max-width: 766px) {
-      margin-left: 500px;
-    }
-    @media (max-width: 670px) {
-      margin-left: 400px;
-    }
-    @media (max-width: 577px) {
-      margin-left: 300px;
-    }
-    @media (max-width: 469px) {
-      margin-left: 200px;
-    }
-    @media (max-width: 368px) {
-      margin-left: 100px;
+
+    img {
+      width: 47px;
+      height: 47px;
+
+      margin-right: 100px;
     }
   }
 `;
