@@ -31,13 +31,11 @@ export function ReadPost() {
     unfollowUser,
   } = useContext(postsContext);
 
-  
   useEffect(() => {
     getPostId();
     renderPost();
     setUserFollowPost(false);
   }, [followId]);
-
 
   useEffect(() => {
     getUser();
@@ -57,7 +55,7 @@ export function ReadPost() {
   });
 
   console.log(userFollowing);
-  console.log(allComments.comments[0].img)
+  //console.log(allComments.comments[0].img);
 
   return (
     <>
@@ -70,7 +68,9 @@ export function ReadPost() {
             <p>{post[0]?.state}</p>
           </div>
           {userFollowPost ? (
-            <button onClick={() => unfollowUser(postOwnerId, userFollowing)}>Seguindo </button>
+            <button onClick={() => unfollowUser(postOwnerId, userFollowing)}>
+              Seguindo{" "}
+            </button>
           ) : (
             <button onClick={() => followUser(postOwnerId, userFollowing)}>
               Seguir{" "}

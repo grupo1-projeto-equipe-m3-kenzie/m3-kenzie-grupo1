@@ -38,8 +38,8 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
       listLastPosts();
       navigate("/Dashboard");
     } catch (error: any) {
-      toast.error(error.response.data);
-      console.log(error);
+      toast.error("Usuário não encontrado");
+      console.log(error.data);
     }
   };
 
@@ -64,28 +64,26 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
         setUserLogin(response.data);
         setFollowersPosts(response.data.following);
         setFollowingUsers(response.data.following);
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        toast.error(error.response.data);
       }
     }
   }
 
   async function listLastPosts() {
     try {
-      const response = await api.get("/posts?_sort=id&_order=desc&_limit=5", {
+      const response = await api.get("/posts?_sort=id&_order=desc&_limit=10", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       setLastPosts(response.data);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error.response.data);
     }
   }
 
   async function listFollowersPosts() {
-    console.log(followingUsers);
-
     if (followingUsers.length !== 0) {
       const endPoint = followingUsers
         .map((followId) => `userId=${followId}&`)
@@ -93,15 +91,13 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
       try {
         const response = await api.get(`/posts?${endPoint}`);
         setFollowersPosts(response.data);
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        toast.error(error.response.data);
       }
     }
   }
 
   async function followUnfollowUser(id: number, name: string) {
-    console.log(followingUsers);
-
     if (token) {
       const isFollowing = followingUsers.find((follow) => follow === id);
       if (Number(userLogedID) === id) {
@@ -125,8 +121,8 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
       });
       setFollowingUsers(newFollowingUsers);
       toast.success(`Você está seguindo ${name}`);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error.response.data);
     }
   }
 
@@ -143,8 +139,8 @@ export const UserProvider = ({ children }: IDefaultPropsChildren) => {
       });
       setFollowingUsers(filterFollowing);
       toast.warning(`Você não está mais seguindo ${name}`);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error.response.data);
     }
   }
 
