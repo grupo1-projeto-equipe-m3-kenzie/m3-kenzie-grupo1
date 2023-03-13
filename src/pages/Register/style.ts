@@ -87,7 +87,7 @@ export const Form = styled.form`
 
   @media (min-width: 1920px) {
     width: 400px;
-    height: 904px;
+    height: 1136px;
     position: absolute;
     top: 332px;
     left: 720px;
@@ -122,7 +122,7 @@ export const Form = styled.form`
       margin-bottom: 40px;
     }
     button {
-      width: 260px;
+      width: 298px;
       height: 60px;
       background: #000000;
       border-radius: 4px;

@@ -10,6 +10,21 @@ export const Header = styled.header`
   align-items: center;
   justify-content: space-between;
 
+  a {
+    margin-top: 21px;
+    margin-right: 70px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #2d2d2d;
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 30px;
+    background-color: #ffff;
+    border-radius: 6px;
+  }
+
   img {
     width: 150px;
     height: 160px;
@@ -18,14 +33,38 @@ export const Header = styled.header`
 
   @media (min-width: 768px) {
     width: 1198px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   @media (min-width: 1920px) {
     width: 100%;
     height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     img {
       margin-top: 20px;
       width: 50px;
       height: 50px;
+    }
+
+    a {
+      margin-top: 21px;
+      margin-right: 70px;
+      margin-bottom: 20px;
+      text-decoration: none;
+      color: #2d2d2d;
+      font-family: "Inter", sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 30px;
+      background-color: #ffff;
+      padding: 7px 7px 7px 7px;
+      border-radius: 6px;
     }
   }
 `;
@@ -36,7 +75,7 @@ export const BoxButton = styled.div`
   align-items: center;
 
   a {
-    margin-top: 20px;
+    margin-top: 21px;
     margin-right: 70px;
     margin-bottom: 20px;
     text-decoration: none;
@@ -143,7 +182,7 @@ export const TextHero = styled.div`
   }
   @media (min-width: 1920px) {
     position: absolute;
-    top: 243px;
+    top: 170px;
     left: -67px;
 
     h1 {
