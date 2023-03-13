@@ -57,6 +57,7 @@ export function ReadPost() {
   });
 
   console.log(userFollowing);
+  console.log(allComments.comments[0].img)
 
   return (
     <>
@@ -69,7 +70,7 @@ export function ReadPost() {
             <p>{post[0]?.state}</p>
           </div>
           {userFollowPost ? (
-            <button onClick={() => setUserFollowPost(false)}>Seguindo </button>
+            <button onClick={() => unfollowUser(postOwnerId, userFollowing)}>Seguindo </button>
           ) : (
             <button onClick={() => followUser(postOwnerId, userFollowing)}>
               Seguir{" "}
