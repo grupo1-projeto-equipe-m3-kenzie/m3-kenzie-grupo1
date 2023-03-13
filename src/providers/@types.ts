@@ -67,7 +67,7 @@ export interface IComments {
   description?: string;
   name?: string;
   img?: string;
-  push?: any;
+  // push?: any;
 }
 
 export interface IUser {
