@@ -6,9 +6,12 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { DashboardHeaderStyled, DashboardStyled, StyledLink } from "./style";
 import { SearchPost } from "../../components/SearchPosts";
+import { postsContext } from "../../providers/postsContext";
+import { SearchListPosts } from "../../components/SearchListPosts";
 
 export function Dashboard() {
   const { userLogin, userLogout } = useContext(userContext);
+  const { searchListPosts } = useContext(postsContext);
 
   const navigate = useNavigate();
 
@@ -30,8 +33,14 @@ export function Dashboard() {
         <button onClick={() => userLogout()}>Sair</button>
       </DashboardHeaderStyled>
       <SearchPost />
-      <LastPostsList />
-      <FollowingPosts />
+      {searchListPosts.length !== 0 ? (
+        <SearchListPosts />
+      ) : (
+        <>
+          <LastPostsList />
+          <FollowingPosts />
+        </>
+      )}
     </DashboardStyled>
   );
 }
