@@ -5,8 +5,6 @@ import { useForm } from "react-hook-form";
 import { useContext, useEffect } from "react";
 import { postsContext } from "../../providers/postsContext";
 import { ICreatePost } from "../../providers/@types";
-import imgChatLogo from "../../assets/messenger 1 (2).png"; //messenger 1.png
-import imgEmailHeader from "../../assets/email 1 (2).png";
 import imgButton from "../../assets/add-button 1 (2).png";
 import { Header } from "./style";
 import { Form } from "./style";
@@ -51,8 +49,6 @@ export function CreatePost() {
   return (
     <DivBody>
       <Header>
-        <img src={imgChatLogo} />
-        <img src={imgEmailHeader} />
         <img src={imgButton} />
         <Link to="/login">Logout</Link>
       </Header>
@@ -61,7 +57,7 @@ export function CreatePost() {
 
         <Form onSubmit={handleSubmit(functionPostRegister)}>
           <label>Seu nome</label>
-          <input type="text" value={infoUser} disabled />
+          <input type="text" value={infoUser} />
           <label>Titulo</label>
           <input type="text" {...register("title")} />
           {errors.title?.message}

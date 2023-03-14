@@ -1,5 +1,18 @@
 import { useContext } from "react";
 import { postsContext } from "../../../providers/postsContext";
+import {
+  Place,
+  HeaderReadPost,
+  MainRedPost,
+  Name,
+  PerfilPostImage,
+  ButtonChangeFollow,
+  PostImage,
+  PostTitle,
+  PostDescription,
+  HedaerItemAlign,
+  HeaderTextAlign,
+} from "./style";
 
 export function Main() {
   const {
@@ -15,27 +28,35 @@ export function Main() {
   } = useContext(postsContext);
 
   return (
-    <main>
-      <header>
-        <img src={allComments.img} alt="imagem"></img>
-        <div>
-          <h3> {post[0]?.name} </h3>
-          <p>{post[0]?.city}</p>
-          <p>{post[0]?.state}</p>
-        </div>
+    <MainRedPost>
+      <HeaderReadPost>
+        <HedaerItemAlign>
+          <PerfilPostImage src={allComments.img} alt="imagem" />
+          <HeaderTextAlign>
+            <Name> {post[0]?.name} </Name>
+            <div>
+              <Place>{post[0]?.city}</Place>
+              <Place>{post[0]?.state}</Place>
+            </div>
+          </HeaderTextAlign>
+        </HedaerItemAlign>
         {userFollowPost ? (
-          <button onClick={() => unfollowUser(postOwnerId, userFollowing)}>
+          <ButtonChangeFollow
+            onClick={() => unfollowUser(postOwnerId, userFollowing)}
+          >
             Seguindo{" "}
-          </button>
+          </ButtonChangeFollow>
         ) : (
-          <button onClick={() => followUser(postOwnerId, userFollowing)}>
+          <ButtonChangeFollow
+            onClick={() => followUser(postOwnerId, userFollowing)}
+          >
             Seguir{" "}
-          </button>
+          </ButtonChangeFollow>
         )}
-      </header>
-      <img src={post[0]?.img}></img>
-      <h3>{post[0]?.title}</h3>
-      <p>{post[0]?.description}</p>
-    </main>
+      </HeaderReadPost>
+      <PostImage src={post[0]?.img}></PostImage>
+      <PostTitle>{post[0]?.title}</PostTitle>
+      <PostDescription>{post[0]?.description}</PostDescription>
+    </MainRedPost>
   );
 }

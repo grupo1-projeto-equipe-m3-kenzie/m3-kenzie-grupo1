@@ -28,6 +28,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   const [userFollowPost, setUserFollowPost] = useState(false);
   const [postUserId, setPostUserId] = useState(0);
   const [postOwnerId, setPostOwnerId] = useState(0);
+  const [searchListPosts, setSearchListPosts] = useState<IPost[] | []>([]);
 
   const navigate = useNavigate();
 
@@ -97,7 +98,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
           Authorization: `Bearer ${localStorage.getItem("@TokenUserAcess")}`,
         },
       });
-      console.log(response.data, data)
+      console.log(response.data, data);
       updateComment(response.data, data);
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -111,15 +112,13 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
       img: postComments.img,
     };
 
-    
     let userComment = { comments: [newComment] };
-    let data = { comments: post[0].comments};
+    let data = { comments: post[0].comments };
 
     data.comments.push(newComment);
-    
 
-  //  let  data = { comments: post[0].comments}
-   console.log(data)
+    //  let  data = { comments: post[0].comments}
+    console.log(data);
     try {
       const response = await api.patch(`/posts/${post[0].id}`, data, {
         headers: {
@@ -182,7 +181,6 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   }
 
   function checkUserFollow(data: number[] | []) {
-    
     setPostOwnerId(followId);
     data.map((element) => {
       console.log(element, Number(followId));
@@ -197,7 +195,6 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   }
 
   async function followUser(postFollowId: number, userFollowId: number[]) {
-
     const checkList = userFollowId.filter(
       (unfollowId) => unfollowId !== postFollowId
     );
@@ -236,18 +233,25 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data)
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
-    
   }
 
-  function logOut(){
-    localStorage.clear()
-    navigate("/login")
+  async function searchPosts(searchTerm: string) {
+    try {
+      const response = await api.get(`/posts?q=${searchTerm}`);
+      setSearchListPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
+  function logOut() {
+    localStorage.clear();
+    navigate("/login");
+  }
 
   useEffect(() => {
     searchNameUser();
@@ -283,6 +287,9 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         postOwnerId,
         setPostOwnerId,
         unfollowUser,
+        searchListPosts,
+        setSearchListPosts,
+        searchPosts,
         logOut,
       }}
     >

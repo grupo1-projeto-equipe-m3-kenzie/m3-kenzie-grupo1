@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm, UseFormRegisterReturn } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { InputsLogin } from "./styleinput";
+import { FieldInputLogin, InputsLogin } from "./styleinput";
 import { LabelInputLogin } from "./styleinput";
 interface IpropsInput {
   register: UseFormRegisterReturn<string>;
@@ -11,10 +11,10 @@ interface IpropsInput {
 }
 export const Input = ({ register, errors, label, type }: IpropsInput) => {
   return (
-    <fieldset>
+    <FieldInputLogin>
       <LabelInputLogin>{label}</LabelInputLogin>
       <InputsLogin type={type} {...register} />
       <p>{errors}</p>
-    </fieldset>
+    </FieldInputLogin>
   );
 };

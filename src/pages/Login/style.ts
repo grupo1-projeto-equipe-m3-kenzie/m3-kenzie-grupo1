@@ -17,7 +17,7 @@ export const ImgBody = styled.img`
 `;
 export const Form = styled.form`
   width: 310px;
-  height: 360px;
+  height: 380px;
   position: absolute;
   top: 300px;
   left: 753px;
@@ -38,15 +38,52 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
   }
+  button {
+    width: 275px;
+    height: 40px;
+    background: #000000;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 48px;
+    color: #ffffff;
 
-  @media (max-width: 1200px) {
-    left: 410px;
+    cursor: pointer;
   }
-  @media (max-width: 1000px) {
-    left: 310px;
+
+  @media (max-width: 1600px) {
+    width: 310px;
+    height: 360px;
+    position: absolute;
+    top: 158px;
+    left: 600px;
   }
-  @media (max-width: 850px) {
-    left: 210px;
+
+  @media (max-width: 1600px) {
+    width: 310px;
+    height: 360px;
+    position: absolute;
+    top: 158px;
+    left: 622px;
+  }
+  @media (max-width: 1320px) {
+    width: 310px;
+    height: 360px;
+    position: absolute;
+    top: 158px;
+    left: 489px;
+  }
+  @media (max-width: 1280px) {
+    width: 310px;
+    height: 360px;
+    position: absolute;
+    top: 158px;
+    left: 489px;
   }
   @media (max-width: 680px) {
     left: 130px;
@@ -88,7 +125,7 @@ export const Form = styled.form`
     font-size: 23px;
     line-height: 48px;
     color: #ffffff;
-    margin-top: 20px;
+
     cursor: pointer;
   }
 `;
@@ -132,6 +169,39 @@ export const Header = styled.header`
     justify-content: center;
     align-items: center;
     width: 320px;
+
+    a {
+      width: 125px;
+      height: 40px;
+      background: white;
+      border-radius: 4px;
+      border: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 23px;
+      line-height: 48px;
+      color: black;
+      font-family: "Inter", sans-serif;
+      margin-right: 30px;
+      text-decoration: none;
+    }
+
+    img {
+      width: 47px;
+      height: 47px;
+
+      margin-right: 100px;
+    }
+  }
+  @media (max-width: 1280px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1280px;
 
     a {
       width: 125px;

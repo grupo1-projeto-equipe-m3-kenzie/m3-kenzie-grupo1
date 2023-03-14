@@ -13,6 +13,16 @@ export const PostCardStyled = styled.li`
   background-color: #d9d9d9;
 
   border-radius: 8px;
+
+  @media (max-width: 320px) {
+    min-width: 200px;
+    height: 280px;
+  }
+
+  @media (min-width: 321px) and (max-width: 768px) {
+    min-width: 200px;
+    height: 280px;
+  }
 `;
 
 export const PostHeader = styled.div`
@@ -25,6 +35,11 @@ export const PostHeader = styled.div`
     border-radius: 4px;
     height: 26px;
     width: 80px;
+
+    :hover {
+      background-color: rgba(0, 0, 0, 0.8);
+      transition: 0.6s;
+    }
   }
 `;
 
@@ -47,16 +62,20 @@ export const ImagePostStyled = styled.div`
     width: 100%;
     height: 110px;
     border-radius: 8px;
+    @media (max-width: 320px) {
+      height: 60px;
+    }
+
+    @media (min-width: 321px) and (max-width: 768px) {
+      height: 60px;
+    }
   }
 `;
 
 export const UserDataStyled = styled.div`
   display: flex;
   flex-direction: column;
-
-  h3 {
-    margin: 0;
-  }
+  gap: 0.6rem;
 `;
 
 export const UserLocationStyled = styled.div`
@@ -72,9 +91,6 @@ export const PostContentStyled = styled.div`
   align-content: space-between;
   height: 100%;
 
-  h4 {
-    margin: 0;
-  }
   p {
     display: flex;
     justify-self: flex-start;
@@ -82,6 +98,24 @@ export const PostContentStyled = styled.div`
     height: 110px;
     width: 100%;
     margin: 0px;
+
+    @media (max-width: 320px) {
+      height: 80px;
+    }
+
+    @media (min-width: 321px) and (max-width: 768px) {
+      height: 80px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    min-width: 200px;
+    height: 280px;
+  }
+
+  @media (min-width: 321px) and (max-width: 768px) {
+    min-width: 200px;
+    height: 280px;
   }
 `;
 
@@ -98,6 +132,7 @@ export const StyledLink = styled(Link)`
   font-size: 12px;
 
   :hover {
-    background-color: #1551ef;
+    background-color: rgba(21, 81, 236, 0.8);
+    transition: 0.6s;
   }
 `;

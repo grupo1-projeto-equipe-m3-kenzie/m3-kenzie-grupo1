@@ -10,6 +10,7 @@ import {
   OrgDevs,
   OrgNames,
   ImgeTech,
+  BoxButton,
 } from "./style";
 import LogoReact from "../../assets/logo-react-1024.svg";
 import LogoGit from "../../assets/Git-logo.svg";
@@ -27,8 +28,10 @@ export function Home() {
       <Background>
         <Header>
           <img src={logoAcess} />
-          <Link to={"/Login"}>Login</Link>
-          <Link to={"/Register"}>Cadastro</Link>
+          <BoxButton>
+            <Link to={"/Login"}>Login</Link>
+            <Link to={"/Register"}>Cadastro</Link>
+          </BoxButton>
         </Header>
         <ImgHero src={imgBodyLogin} />
         <TextHero>

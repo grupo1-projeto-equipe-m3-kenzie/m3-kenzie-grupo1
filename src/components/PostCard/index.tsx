@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
 import { IPosts } from "../../providers/@types";
 import { postsContext } from "../../providers/postsContext";
 import { userContext } from "../../providers/userContext";

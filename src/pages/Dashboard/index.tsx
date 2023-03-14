@@ -5,10 +5,13 @@ import { userContext } from "../../providers/userContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { DashboardHeaderStyled, DashboardStyled, StyledLink } from "./style";
+import { SearchPost } from "../../components/SearchPosts";
+import { postsContext } from "../../providers/postsContext";
+import { SearchListPosts } from "../../components/SearchListPosts";
 
 export function Dashboard() {
   const { userLogin, userLogout } = useContext(userContext);
-  console.log(userLogin);
+  const { searchListPosts } = useContext(postsContext);
 
   const navigate = useNavigate();
 
@@ -16,7 +19,6 @@ export function Dashboard() {
     const route = localStorage.getItem("@TokenUserAccess");
     if (!route) {
       navigate("/login");
-      console.log(route);
     }
   }, []);
 
@@ -28,10 +30,17 @@ export function Dashboard() {
           <h4>Olá, {userLogin?.name}</h4>
           <StyledLink to={"/CreatePost"}>+</StyledLink>
         </div>
-        <button onClick={() => userLogout()}>Sair</button>
+        <button onClick={() => userLogout()}>LogOut</button>
       </DashboardHeaderStyled>
-      <LastPostsList />
-      <FollowingPosts />
+      <SearchPost />
+      {searchListPosts.length !== 0 ? (
+        <SearchListPosts />
+      ) : (
+        <>
+          <LastPostsList />
+          <FollowingPosts />
+        </>
+      )}
     </DashboardStyled>
   );
 }
