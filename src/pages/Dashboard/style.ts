@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const DashboardStyled = styled.div`
+  font-family: "Inter", sans-serif;
   display: flex;
   flex-direction: column;
-  width: 99vw;
+  height: 100vh;
   background-color: #d9d9d9;
 `;
 
@@ -20,19 +21,21 @@ export const DashboardHeaderStyled = styled.header`
     width: 80px;
     object-fit: contain;
     object-position: center;
-    border-radius: 8px;
+    border-radius: 50%;
   }
 
   div {
     display: flex;
-    flex-direction: row;
     align-items: center;
 
     gap: 1rem;
+
+    @media (max-width: 320px) {
+      gap: 0.6rem;
+    }
   }
 
   button {
-    border: none;
     border-radius: 4px;
     background-color: #000000;
     color: #ffffff;
@@ -44,6 +47,7 @@ export const DashboardHeaderStyled = styled.header`
 export const StyledLink = styled(Link)`
   display: flex;
   justify-content: center;
+  align-items: center;
   border: 1px solid #0c0c0c;
   border-radius: 8px;
   color: #0c0c0c;

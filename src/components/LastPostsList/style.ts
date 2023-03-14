@@ -6,7 +6,8 @@ export const LastPostsContainerStyled = styled.div`
   margin: 0 1rem 0 1rem;
 
   h2 {
-    margin: 18px 0 0 1rem;
+    padding: 1rem;
+    font-weight: 700;
   }
 `;
 

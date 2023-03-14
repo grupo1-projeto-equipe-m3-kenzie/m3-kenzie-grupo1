@@ -5,10 +5,10 @@ import { userContext } from "../../providers/userContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { DashboardHeaderStyled, DashboardStyled, StyledLink } from "./style";
+import { SearchPost } from "../../components/SearchPosts";
 
 export function Dashboard() {
   const { userLogin, userLogout } = useContext(userContext);
-  console.log(userLogin);
 
   const navigate = useNavigate();
 
@@ -16,7 +16,6 @@ export function Dashboard() {
     const route = localStorage.getItem("@TokenUserAccess");
     if (!route) {
       navigate("/login");
-      console.log(route);
     }
   }, []);
 
@@ -30,6 +29,7 @@ export function Dashboard() {
         </div>
         <button onClick={() => userLogout()}>Sair</button>
       </DashboardHeaderStyled>
+      <SearchPost />
       <LastPostsList />
       <FollowingPosts />
     </DashboardStyled>
