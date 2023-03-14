@@ -13,6 +13,30 @@ export const PostCardStyled = styled.li`
   background-color: #d9d9d9;
 
   border-radius: 8px;
+
+  @media (max-width: 320px) {
+    min-width: 200px;
+    height: 280px;
+  }
+
+  @media (min-width: 321px) and (max-width: 768px) {
+    min-width: 200px;
+    height: 280px;
+  }
+
+  @media (min-width: 376px) and (max-width: 425px) {
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+  }
+
+  @media (min-width: 1025px) and (max-width: 1440px) {
+  }
+
+  @media (min-width: 1441px) and (max-width: 2560px) {
+  }
 `;
 
 export const PostHeader = styled.div`
@@ -47,16 +71,20 @@ export const ImagePostStyled = styled.div`
     width: 100%;
     height: 110px;
     border-radius: 8px;
+    @media (max-width: 320px) {
+      height: 60px;
+    }
+
+    @media (min-width: 321px) and (max-width: 768px) {
+      height: 60px;
+    }
   }
 `;
 
 export const UserDataStyled = styled.div`
   display: flex;
   flex-direction: column;
-
-  h3 {
-    margin: 0;
-  }
+  gap: 0.6rem;
 `;
 
 export const UserLocationStyled = styled.div`
@@ -72,9 +100,6 @@ export const PostContentStyled = styled.div`
   align-content: space-between;
   height: 100%;
 
-  h4 {
-    margin: 0;
-  }
   p {
     display: flex;
     justify-self: flex-start;
@@ -82,6 +107,24 @@ export const PostContentStyled = styled.div`
     height: 110px;
     width: 100%;
     margin: 0px;
+
+    @media (max-width: 320px) {
+      height: 80px;
+    }
+
+    @media (min-width: 321px) and (max-width: 768px) {
+      height: 80px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    min-width: 200px;
+    height: 280px;
+  }
+
+  @media (min-width: 321px) and (max-width: 768px) {
+    min-width: 200px;
+    height: 280px;
   }
 `;
 

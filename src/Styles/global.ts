@@ -1,3 +1,4 @@
+import { Input } from "./../pages/Login/inputLogin/index";
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
@@ -35,6 +36,7 @@ ol, ul {
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
@@ -44,8 +46,25 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-*{
-font-family: 'Inter', sans-serif;
+
+* {
+  font-family: 'Inter', sans-serif;
+  list-style: none;
+  line-height: 150%;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+input {
+	border: none;
+}
+
+Link {
+  cursor: pointer;
 }
 
 :root{
@@ -62,6 +81,4 @@ font-family: 'Inter', sans-serif;
 	--title1:16px;
 	--title2:12px;
 }
-
-
 `;
