@@ -28,6 +28,7 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
   const [userFollowPost, setUserFollowPost] = useState(false);
   const [postUserId, setPostUserId] = useState(0);
   const [postOwnerId, setPostOwnerId] = useState(0);
+  const [searchListPosts, setSearchListPosts] = useState<IPost[] | []>([]);
 
   const navigate = useNavigate();
 
@@ -238,6 +239,15 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
     }
   }
 
+  async function searchPosts(searchTerm: string) {
+    try {
+      const response = await api.get(`/posts?q=${searchTerm}`);
+      setSearchListPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   function logOut() {
     localStorage.clear();
     navigate("/login");
@@ -277,6 +287,9 @@ export const PostsProvider = ({ children }: IDefaultPropsChildren) => {
         postOwnerId,
         setPostOwnerId,
         unfollowUser,
+        searchListPosts,
+        setSearchListPosts,
+        searchPosts,
         logOut,
       }}
     >

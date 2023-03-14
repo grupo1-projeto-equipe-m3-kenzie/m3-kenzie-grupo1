@@ -127,5 +127,8 @@ export interface IPostContext {
   postOwnerId: number;
   setPostOwnerId: React.Dispatch<React.SetStateAction<number>>;
   unfollowUser(postFollowId: number, userFollowId: number[]): Promise<void>;
+  searchListPosts: [] | IPost[];
+  setSearchListPosts: React.Dispatch<React.SetStateAction<IPost[] | []>>;
+  searchPosts(searchTerm: string): Promise<void>;
   logOut(): void;
 }
