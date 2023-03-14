@@ -4,6 +4,7 @@ import { postsContext } from "../../../providers/postsContext"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { IComments } from "../../../providers/@types";
+import { CommentTitle, NewCommentItemAlign } from "./Style";
 
 export function NewCommentSection(){
 
@@ -22,8 +23,8 @@ export function NewCommentSection(){
 
     const {submitComment} = useContext(postsContext)
     return(
-        <div>
-        <h2>Comentários</h2>
+        <NewCommentItemAlign>
+        <CommentTitle>Comentários</CommentTitle>
         <form onSubmit={handleSubmit(submitComment)}>
           <input
             type="text"
@@ -32,6 +33,6 @@ export function NewCommentSection(){
           />
           <button type="submit">Comentar</button>
         </form>
-      </div>
+      </NewCommentItemAlign>
     )
 }
