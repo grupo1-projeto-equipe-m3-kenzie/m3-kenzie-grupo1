@@ -5,8 +5,6 @@ export const InputsLogin = styled.input`
   background: #d9d9d9;
   border-radius: 8px;
   padding-left: 10px;
-  margin-top: -6px;
-  margin-bottom: 10px;
   font-family: "Inter", sans-serif;
   border: none;
 `;
@@ -22,5 +20,5 @@ export const LabelInputLogin = styled.label`
 `;
 export const FieldInputLogin = styled.fieldset`
   border: none;
-  height: 50px;
+  height: 100px;
 `;
