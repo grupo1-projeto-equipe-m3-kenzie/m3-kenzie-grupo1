@@ -17,7 +17,7 @@ export const ImgBody = styled.img`
 `;
 export const Form = styled.form`
   width: 310px;
-  height: 360px;
+  height: 380px;
   position: absolute;
   top: 300px;
   left: 753px;
@@ -37,6 +37,23 @@ export const Form = styled.form`
   fieldset {
     display: flex;
     flex-direction: column;
+  }
+  button {
+    width: 275px;
+    height: 40px;
+    background: #000000;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 48px;
+    color: #ffffff;
+
+    cursor: pointer;
   }
 
   @media (max-width: 1600px) {
@@ -108,7 +125,7 @@ export const Form = styled.form`
     font-size: 23px;
     line-height: 48px;
     color: #ffffff;
-    margin-top: 20px;
+
     cursor: pointer;
   }
 `;

@@ -9,6 +9,7 @@ export const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-family: "Inter", sans-serif;
 
   a {
     margin-top: 21px;
@@ -278,6 +279,7 @@ export const TextHero = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: "Inter", sans-serif;
 
   h1 {
     width: 1027px;
@@ -360,7 +362,7 @@ export const TextHero = styled.div`
       width: 1252px;
       color: white;
       text-align: center;
-      font-size: 30px;
+      font-size: 50px;
       margin: 0;
       margin-bottom: 40px;
       margin-left: 170px;
@@ -464,7 +466,7 @@ export const DevContri = styled.section`
     }
   }
   @media (min-width: 1280px) {
-    width: 1410px;
+    width: 100%;
 
     ul {
       padding: 0;
@@ -480,7 +482,7 @@ export const DevContri = styled.section`
     }
 
     h1 {
-      font-size: 40px;
+      font-size: 60px;
       font-weight: 300;
       margin: 0;
       margin-bottom: 40px;
