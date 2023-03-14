@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { postsContext } from "../../../providers/postsContext";
-import { Place, HeaderReadPost, MainRedPost, Name, PerfilPostImage, ButtonChangeFollow } from "./style";
+import { Place, HeaderReadPost, MainRedPost, Name, PerfilPostImage, ButtonChangeFollow, PostImage, PostTitle, PostDescription } from "./style";
 
 export function Main() {
   const {
@@ -36,9 +36,9 @@ export function Main() {
           </ButtonChangeFollow>
         )}
       </HeaderReadPost>
-      <img src={post[0]?.img}></img>
-      <h3>{post[0]?.title}</h3>
-      <p>{post[0]?.description}</p>
+      <PostImage src={post[0]?.img}></PostImage>
+      <PostTitle>{post[0]?.title}</PostTitle>
+      <PostDescription>{post[0]?.description}</PostDescription>
     </MainRedPost>
   );
 }

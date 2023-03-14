@@ -6,6 +6,10 @@ margin-top:34px;
 height:100%;
 padding-bottom:26px;
 background-color: var(--grey-0);
+display:flex;
+flex-direction:column;
+align-items:center;
+border-radius:10px;
 `
 
 export const HeaderReadPost = styled.header`
@@ -58,4 +62,29 @@ height:62px;
 width: 100%;
 max-width:315px;
 margin-top:24px;
+`
+
+export const PostImage = styled.img`
+width: 90%;
+height:auto;
+max-height:622px;
+`
+
+export const PostTitle = styled.h3`
+font-style: normal;
+font-weight: 500;
+font-size: 32px;
+line-height: 150%;
+margin-top:32px; 
+width:90%;
+color:var(--grey-4);
+`
+
+export const PostDescription = styled.p`
+font-style: normal;
+font-weight: 500;
+font-size: 26px;
+line-height: 150%;
+color: var(--grey-3);
+width:90%;
 `

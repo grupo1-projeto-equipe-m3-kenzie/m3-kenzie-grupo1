@@ -53,7 +53,7 @@ font-family: 'Inter', sans-serif;
 	--primary-Focus:#FF427F;
 	--primary-Negative:#59323F; 
 	--grey-4:#000;
-	--grey-3:#212529;
+	--grey-3:##626262;
 	--grey-2:#D9D9D9;
 	--grey-1:#afafaf;
 	--grey-0:#FFF;
