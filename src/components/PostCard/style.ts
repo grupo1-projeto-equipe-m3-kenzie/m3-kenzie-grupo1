@@ -23,20 +23,6 @@ export const PostCardStyled = styled.li`
     min-width: 200px;
     height: 280px;
   }
-
-  @media (min-width: 376px) and (max-width: 425px) {
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-  }
-
-  @media (min-width: 769px) and (max-width: 1024px) {
-  }
-
-  @media (min-width: 1025px) and (max-width: 1440px) {
-  }
-
-  @media (min-width: 1441px) and (max-width: 2560px) {
-  }
 `;
 
 export const PostHeader = styled.div`
@@ -49,6 +35,11 @@ export const PostHeader = styled.div`
     border-radius: 4px;
     height: 26px;
     width: 80px;
+
+    :hover {
+      background-color: rgba(0, 0, 0, 0.8);
+      transition: 0.6s;
+    }
   }
 `;
 
@@ -141,6 +132,7 @@ export const StyledLink = styled(Link)`
   font-size: 12px;
 
   :hover {
-    background-color: #1551ef;
+    background-color: rgba(21, 81, 236, 0.8);
+    transition: 0.6s;
   }
 `;

@@ -5,7 +5,6 @@ export const DashboardStyled = styled.div`
   font-family: "Inter", sans-serif;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   background-color: #d9d9d9;
 `;
 
@@ -18,9 +17,9 @@ export const DashboardHeaderStyled = styled.header`
   background-color: #aeaeae;
 
   img {
-    width: 80px;
-    object-fit: contain;
-    object-position: center;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
     border-radius: 50%;
   }
 
@@ -36,11 +35,18 @@ export const DashboardHeaderStyled = styled.header`
   }
 
   button {
-    border-radius: 4px;
-    background-color: #000000;
-    color: #ffffff;
-    height: 26px;
-    width: 46px;
+    width: 146px;
+    height: 40px;
+    border: none;
+    outline: none;
+    background-color: var(--button-2);
+    border-radius: 8px;
+    color: var(--grey-0);
+
+    :hover {
+      background-color: rgba(255, 0, 0, 0.8);
+      transition: 0.6s;
+    }
   }
 `;
 
@@ -56,4 +62,11 @@ export const StyledLink = styled(Link)`
   width: 26px;
   height: 26px;
   margin: 0;
+
+  :hover {
+    background-color: rgba(12, 12, 12, 0.1);
+    border: 1px solid rgba(12, 12, 12, 0.6);
+    color: rgba(12, 12, 12, 0.6);
+    transition: 0.6s;
+  }
 `;

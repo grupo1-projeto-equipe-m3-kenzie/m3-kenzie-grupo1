@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const SearchPostStyled = styled.div`
+  position: relative;
   display: flex;
-  align-self: center;
-  height: 80px;
-  width: 92vw;
-  padding: 1rem 0 0 0;
+  justify-content: space-between;
+  width: 93vw;
+  padding: 1rem 1rem 0 1rem;
   gap: 0.6rem;
 
   input {
@@ -16,8 +16,18 @@ export const SearchPostStyled = styled.div`
   }
 
   button {
+    position: relative;
+    top: 0;
+    right: 83px;
     height: 32px;
     width: 76px;
     border-radius: 4px;
+    background-color: #8b8b8b;
+    color: #ffffff;
+
+    :hover {
+      background-color: rgba(139, 139, 139, 0.8);
+      transition: 0.6s;
+    }
   }
 `;
