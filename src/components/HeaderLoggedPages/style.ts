@@ -11,6 +11,7 @@ box-sizing:border-box;
 justify-content:space-between;
 align-items:center;
 border-bottom: solid 1px var(--grey-0);
+
 `
 
 export const PerfilImage = styled.img`
