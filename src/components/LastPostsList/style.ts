@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 export const LastPostsContainerStyled = styled.div`
   display: flex;
   flex-direction: column;

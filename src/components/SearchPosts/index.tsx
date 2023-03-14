@@ -15,7 +15,7 @@ export const SearchPost = () => {
       ></input>
       <button onClick={() => searchPosts(searchTerm)}>Pesquisar</button>
       {searchListPosts.length !== 0 ? (
-        <button onClick={() => setSearchListPosts([])}>Limpar pesquisa</button>
+        <button onClick={() => setSearchListPosts([])}>Limpar</button>
       ) : null}
     </SearchPostStyled>
   );

@@ -30,7 +30,7 @@ export function Dashboard() {
           <h4>Olá, {userLogin?.name}</h4>
           <StyledLink to={"/CreatePost"}>+</StyledLink>
         </div>
-        <button onClick={() => userLogout()}>Sair</button>
+        <button onClick={() => userLogout()}>LogOut</button>
       </DashboardHeaderStyled>
       <SearchPost />
       {searchListPosts.length !== 0 ? (
