@@ -17,6 +17,10 @@ box-sizing:border-box;
 display:flex;
 flex-direction:column;
 border-radius:10px;
+@media(min-width: 766px){
+    flex-direction:row;
+    
+}
 `
 
 export const PostImage = styled.img`
@@ -39,4 +43,10 @@ font-weight: 500;
 font-size: 25px;
 line-height: 30px;
 color: var(--grey-3);
+`
+
+export const TextAlign = styled.div`
+@media(min-width: 766px){
+    margin-left:15px;
+}
 `

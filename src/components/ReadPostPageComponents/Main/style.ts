@@ -10,6 +10,8 @@ display:flex;
 flex-direction:column;
 align-items:center;
 border-radius:10px;
+
+
 `
 
 export const HeaderReadPost = styled.header`
@@ -17,6 +19,13 @@ display:flex;
 flex-direction: column;
 padding:28px;
 align-items:center;
+@media(min-width:767px){
+    flex-direction:row;
+    padding: 28px 0 28px 0;
+    margin: 0 2.5vw;
+    justify-content: space-between;
+    width:90%;
+}
 `
 
 export const PerfilPostImage = styled.img`
@@ -24,6 +33,7 @@ height:175px;
 width:175px;
 border-radius:50%;
 margin-top:28px;
+
 `
 
 export const Name = styled.h3`
@@ -47,6 +57,22 @@ display:flex;
 gap:15px;
 `
 
+export const HedaerItemAlign = styled.div`
+display:flex;
+flex-direction:column;
+
+@media(min-width: 766px){
+    flex-direction:row;
+    justify-content:space-between;
+}
+`
+
+export const HeaderTextAlign = styled.div`
+@media(min-width: 766px){
+    margin-left:10px;
+}
+`
+
 export const ButtonChangeFollow = styled.button`
 padding:0 5px;
 text-align:center;
@@ -60,7 +86,7 @@ line-height: 36px;
 border-radius:8px;
 height:62px;
 width: 100%;
-max-width:315px;
+max-width:240px;
 margin-top:24px;
 `
 
